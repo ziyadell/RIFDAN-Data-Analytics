@@ -1,0 +1,12 @@
+# Python 3.13.18. Install with: python -m pip install -r requirements.txt
+# These versions install together and were used to re-run the full pipeline (see "Reproducibility" in README.md).
+pandas==2.3.3
+numpy==2.5.3
+matplotlib==3.11.2
+seaborn==0.13.2
+scikit-learn==1.9.1
+scipy==1.18.1
+lifelines==0.30.3
+arabic-reshaper==3.0.1
+python-bidi==0.6.12
+reportlab==5.0.1

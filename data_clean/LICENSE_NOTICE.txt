@@ -1,0 +1,9 @@
+scripts/run_analysis.py writes cleaned_donations.csv to this folder locally; the file is not included in the public repository. It is a derived (cleaned) version of the open dataset:
+"A sample of donations for different IDs in Ehsan"
+Source: https://open.data.gov.sa/ar/datasets/view/cc3b177a-5e5d-4845-bb92-6119b1322b05
+Licence: Open Data License v2.0 (ODC Attribution License), Saudi Data & AI Authority (SDAIA). A copy of the licence is in ../data_license/Open_Data_License_Ar.pdf
+
+Changes made: column names trimmed/renamed, text trimmed, 1 record with a non-numeric amount removed, 1 missing title filled with 'غير محدد', derived columns added (year, month, day, hour, year_month, day_of_week, is_exact_duplicate). No other values were altered.
+Contains pseudonymous user IDs: keep it local and do not commit or publish it. The licence does not cover personal data (clause 4.3-d). SHA-256 of the file behind the published results: 2932826abed6dc65d638f5588a8a3dfc87336f12ac27eb27870335c15b51f8b7
+
+يحتوي هذا العمل على معلومات من مجموعة البيانات «A sample of donations for different IDs in Ehsan» المنشورة في منصة البيانات المفتوحة السعودية (https://open.data.gov.sa/ar/datasets/view/cc3b177a-5e5d-4845-bb92-6119b1322b05) والمتاحة بموجب رخصة البيانات المفتوحة (ODC Attribution License)، النسخة 2.0.

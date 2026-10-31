@@ -1,0 +1,5841 @@
+{
+ "quality_before": {
+  "records": 40931,
+  "columns": 6,
+  "original_columns": [
+   "UserID",
+   "CreationTime",
+   "Title",
+   " Amount ",
+   "InitiativeName",
+   "PaymentMethod"
+  ],
+  "missing_or_placeholder": {
+   "UserID": 0,
+   "CreationTime": 0,
+   "Title": 1,
+   "Amount": 1,
+   "InitiativeName": 0,
+   "PaymentMethod": 0
+  },
+  "invalid_amount": 1,
+  "zero_or_negative_amount": 0,
+  "non_integer_amount": 0,
+  "invalid_dates": 0,
+  "exact_duplicate_extra_rows": 202,
+  "rows_in_duplicate_groups": 376,
+  "duplicate_amount": 10199.0,
+  "unique_user_ids": 1371,
+  "unique_initiatives": 22,
+  "unique_titles": 1702,
+  "payment_methods": {
+   "أبل باى": 22658,
+   "بطاقة الدفع": 18159,
+   "نقاط قطاف": 114
+  },
+  "date_min": "2020-12-14",
+  "date_max": "2023-07-13",
+  "padded_cells": {
+   "UserID": 0,
+   "CreationTime": 0,
+   "Title": 1648,
+   "Amount": 40931,
+   "InitiativeName": 0,
+   "PaymentMethod": 0
+  }
+ },
+ "duplicates": {
+  "duplicate_rows": 202,
+  "duplicate_amount": 10199.0,
+  "duplicate_share_rows_pct": 0.4935255313950647,
+  "duplicate_share_amount_pct": 0.663330178954112,
+  "dup_by_initiative_top": {
+   "مشروع": 56,
+   "تملك المساكن": 40,
+   "فرجت": 23,
+   "التبرع الدوري": 23,
+   "الحملات المخصصة": 14
+  },
+  "median_dup_amount": 5.0,
+  "max_dup_amount": 1200.0,
+  "near_dup_same_user_time_title_diff_amount": 270,
+  "total_with": 1537545.0,
+  "total_without": 1527346.0,
+  "mean_with": 37.56523332518935,
+  "mean_without": 37.50112944411707
+ },
+ "categorical_notes": {
+  "initiatives": 22,
+  "titles": 1701,
+  "title_variants_same_meaning": [
+   "تفريج كرب",
+   "تفريج كربة",
+   "إعانة السجناء",
+   "إعانة سجناء",
+   "إعانة أسر السجناء"
+  ],
+  "initiative_typo": [
+   "ملبغ زكاة إضافي"
+  ],
+  "zakat_labels": [
+   "زكاة",
+   "زكاة الفطر",
+   "زكاة المال",
+   "ملبغ زكاة إضافي"
+  ]
+ },
+ "quality_after": {
+  "records": 40930,
+  "missing": {
+   "user_id": 0,
+   "created_at": 0,
+   "title": 0,
+   "amount": 0,
+   "initiative": 0,
+   "payment_method": 0,
+   "is_exact_duplicate": 0,
+   "year": 0,
+   "month": 0,
+   "day": 0,
+   "hour": 0,
+   "year_month": 0,
+   "day_of_week": 0
+  },
+  "invalid_amount": 0,
+  "zero_or_negative": 0,
+  "invalid_dates": 0,
+  "date_min": "2020-12-14",
+  "date_max": "2023-07-13",
+  "removed_records": 1
+ },
+ "cleaning_log": [
+  {
+   "step": "أسماء الأعمدة",
+   "unit": "عمود",
+   "issue": "مسافات زائدة في اسم عمود المبلغ ( Amount )",
+   "action": "إزالة المسافات + snake_case",
+   "records_affected": 1,
+   "reason": "ضمان الوصول للعمود برمجياً"
+  },
+  {
+   "step": "مسافات",
+   "unit": "خلية",
+   "issue": "خلايا نصية بمسافات زائدة",
+   "action": "strip لكل الأعمدة",
+   "records_affected": 42579,
+   "reason": "منع اعتبار القيمة نفسها قيمتين مختلفتين"
+  },
+  {
+   "step": "المبلغ",
+   "unit": "سجل",
+   "issue": "قيمة غير رقمية (الرمز '-')",
+   "action": "استبعاد السجل",
+   "records_affected": 1,
+   "reason": "لا يمكن تقدير المبلغ دون افتراض"
+  },
+  {
+   "step": "المبلغ",
+   "unit": "سجل",
+   "issue": "قيم صفرية/سالبة",
+   "action": "لا إجراء (لا توجد)",
+   "records_affected": 0,
+   "reason": "تم الفحص"
+  },
+  {
+   "step": "العنوان",
+   "unit": "خلية",
+   "issue": "عنوان مفقود",
+   "action": "تعبئة بـ «غير محدد» والإبقاء على السجل",
+   "records_affected": 1,
+   "reason": "المبلغ صالح ولا يُستبعد بسبب عنوان"
+  },
+  {
+   "step": "التاريخ",
+   "unit": "سجل",
+   "issue": "تواريخ غير قابلة للتحويل",
+   "action": "لا إجراء (كلها صالحة بالتنسيق شهر/يوم/سنة)",
+   "records_affected": 0,
+   "reason": "تم الفحص"
+  },
+  {
+   "step": "التكرار",
+   "unit": "سجل",
+   "issue": "سجلات مطابقة تماماً لسجل سابق",
+   "action": "تعليم فقط (is_exact_duplicate) دون حذف",
+   "records_affected": 202,
+   "reason": "قد تكون تبرعات حقيقية؛ يُقاس الأثر في تحليل الحساسية"
+  }
+ ],
+ "overview": {
+  "total_amount": 1537545.0,
+  "transactions": 40930,
+  "mean": 37.56523332518935,
+  "median": 10.0,
+  "min": 1.0,
+  "max": 20000.0,
+  "observed_donors": 1371,
+  "unique_initiatives": 22,
+  "unique_titles": 1701,
+  "p25": 1.0,
+  "p75": 10.0,
+  "p95": 100.0,
+  "p99": 500.0,
+  "p999": 5000.0,
+  "date_min": "2020-12-14",
+  "date_max": "2023-07-13",
+  "share_txn_le10_pct": 79.35255313950648,
+  "amount_share_le10_pct": 10.993044106026165,
+  "share_txn_ge5000_pct": 0.1685805032983142,
+  "amount_share_ge5000_pct": 26.86913228555912,
+  "txn_ge5000": 69
+ },
+ "amount_bands": [
+  {
+   "band": "1",
+   "count": 12229.0,
+   "sum": 12229.0,
+   "count_pct": 29.87784021500122,
+   "amount_pct": 0.7953588350259668
+  },
+  {
+   "band": "2-10",
+   "count": 20250.0,
+   "sum": 156794.0,
+   "count_pct": 49.474712924505255,
+   "amount_pct": 10.197685271000198
+  },
+  {
+   "band": "11-100",
+   "count": 7272.0,
+   "sum": 373297.0,
+   "count_pct": 17.76691913022233,
+   "amount_pct": 24.27876907667743
+  },
+  {
+   "band": "101-1,000",
+   "count": 1034.0,
+   "sum": 396585.0,
+   "count_pct": 2.5262643537747373,
+   "amount_pct": 25.79339141293426
+  },
+  {
+   "band": "1,001-4,999",
+   "count": 76.0,
+   "sum": 185515.0,
+   "count_pct": 0.18568287319814317,
+   "amount_pct": 12.065663118803027
+  },
+  {
+   "band": "5,000+",
+   "count": 69.0,
+   "sum": 413125.0,
+   "count_pct": 0.1685805032983142,
+   "amount_pct": 26.86913228555912
+  }
+ ],
+ "monthly": [
+  {
+   "year_month": "2020-12",
+   "transactions": 1,
+   "amount": 50.0,
+   "avg": 50.0,
+   "median": 50.0,
+   "partial": true,
+   "low_volume": true,
+   "mom_amount_pct": null,
+   "mom_txn_pct": null
+  },
+  {
+   "year_month": "2021-01",
+   "transactions": 16,
+   "amount": 16.0,
+   "avg": 1.0,
+   "median": 1.0,
+   "partial": false,
+   "low_volume": true,
+   "mom_amount_pct": null,
+   "mom_txn_pct": null
+  },
+  {
+   "year_month": "2021-03",
+   "transactions": 72,
+   "amount": 1313.0,
+   "avg": 18.2361111111,
+   "median": 1.0,
+   "partial": false,
+   "low_volume": true,
+   "mom_amount_pct": null,
+   "mom_txn_pct": null
+  },
+  {
+   "year_month": "2021-04",
+   "transactions": 862,
+   "amount": 40278.0,
+   "avg": 46.7262180974,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": null,
+   "mom_txn_pct": null
+  },
+  {
+   "year_month": "2021-05",
+   "transactions": 967,
+   "amount": 40965.0,
+   "avg": 42.3629782834,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 1.705645762,
+   "mom_txn_pct": 12.180974478
+  },
+  {
+   "year_month": "2021-06",
+   "transactions": 163,
+   "amount": 3873.0,
+   "avg": 23.7607361963,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -90.5455876968,
+   "mom_txn_pct": -83.1437435367
+  },
+  {
+   "year_month": "2021-07",
+   "transactions": 318,
+   "amount": 19470.0,
+   "avg": 61.2264150943,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 402.7110766847,
+   "mom_txn_pct": 95.0920245399
+  },
+  {
+   "year_month": "2021-08",
+   "transactions": 280,
+   "amount": 8393.0,
+   "avg": 29.975,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -56.8926553672,
+   "mom_txn_pct": -11.9496855346
+  },
+  {
+   "year_month": "2021-09",
+   "transactions": 277,
+   "amount": 8111.0,
+   "avg": 29.2815884477,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -3.3599428095,
+   "mom_txn_pct": -1.0714285714
+  },
+  {
+   "year_month": "2021-10",
+   "transactions": 382,
+   "amount": 13983.0,
+   "avg": 36.6047120419,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 72.3955122673,
+   "mom_txn_pct": 37.9061371841
+  },
+  {
+   "year_month": "2021-11",
+   "transactions": 363,
+   "amount": 9066.0,
+   "avg": 24.9752066116,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -35.1641278696,
+   "mom_txn_pct": -4.9738219895
+  },
+  {
+   "year_month": "2021-12",
+   "transactions": 477,
+   "amount": 11928.0,
+   "avg": 25.0062893082,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 31.5684976837,
+   "mom_txn_pct": 31.4049586777
+  },
+  {
+   "year_month": "2022-01",
+   "transactions": 720,
+   "amount": 16603.0,
+   "avg": 23.0597222222,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 39.1934942991,
+   "mom_txn_pct": 50.9433962264
+  },
+  {
+   "year_month": "2022-02",
+   "transactions": 939,
+   "amount": 19877.0,
+   "avg": 21.1682641108,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 19.7193278323,
+   "mom_txn_pct": 30.4166666667
+  },
+  {
+   "year_month": "2022-03",
+   "transactions": 1254,
+   "amount": 26741.0,
+   "avg": 21.3245614035,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 34.5323741007,
+   "mom_txn_pct": 33.5463258786
+  },
+  {
+   "year_month": "2022-04",
+   "transactions": 3691,
+   "amount": 365565.0,
+   "avg": 99.0422649688,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 1267.0580756142,
+   "mom_txn_pct": 194.3381180223
+  },
+  {
+   "year_month": "2022-05",
+   "transactions": 1700,
+   "amount": 42252.0,
+   "avg": 24.8541176471,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -88.4420007386,
+   "mom_txn_pct": -53.9420211325
+  },
+  {
+   "year_month": "2022-06",
+   "transactions": 1462,
+   "amount": 85678.0,
+   "avg": 58.6032831737,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 102.7785666951,
+   "mom_txn_pct": -14.0
+  },
+  {
+   "year_month": "2022-07",
+   "transactions": 2124,
+   "amount": 190963.0,
+   "avg": 89.9072504708,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 122.8845211139,
+   "mom_txn_pct": 45.2804377565
+  },
+  {
+   "year_month": "2022-08",
+   "transactions": 1810,
+   "amount": 42086.0,
+   "avg": 23.2519337017,
+   "median": 8.5,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -77.9611757251,
+   "mom_txn_pct": -14.7834274953
+  },
+  {
+   "year_month": "2022-09",
+   "transactions": 1755,
+   "amount": 38195.0,
+   "avg": 21.7635327635,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -9.2453547498,
+   "mom_txn_pct": -3.0386740331
+  },
+  {
+   "year_month": "2022-10",
+   "transactions": 1765,
+   "amount": 34790.0,
+   "avg": 19.7110481586,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -8.9147794214,
+   "mom_txn_pct": 0.5698005698
+  },
+  {
+   "year_month": "2022-11",
+   "transactions": 1777,
+   "amount": 35734.0,
+   "avg": 20.1091727631,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 2.7134233975,
+   "mom_txn_pct": 0.6798866856
+  },
+  {
+   "year_month": "2022-12",
+   "transactions": 2198,
+   "amount": 34116.0,
+   "avg": 15.5213830755,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -4.5279005989,
+   "mom_txn_pct": 23.6916150816
+  },
+  {
+   "year_month": "2023-01",
+   "transactions": 2252,
+   "amount": 35619.0,
+   "avg": 15.81660746,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 4.4055575097,
+   "mom_txn_pct": 2.4567788899
+  },
+  {
+   "year_month": "2023-02",
+   "transactions": 1728,
+   "amount": 31773.0,
+   "avg": 18.3871527778,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -10.7976080182,
+   "mom_txn_pct": -23.2682060391
+  },
+  {
+   "year_month": "2023-03",
+   "transactions": 2745,
+   "amount": 128646.0,
+   "avg": 46.8655737705,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 304.8909451421,
+   "mom_txn_pct": 58.8541666667
+  },
+  {
+   "year_month": "2023-04",
+   "transactions": 4267,
+   "amount": 119496.0,
+   "avg": 28.0046871338,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -7.1125413927,
+   "mom_txn_pct": 55.4462659381
+  },
+  {
+   "year_month": "2023-05",
+   "transactions": 1688,
+   "amount": 24414.0,
+   "avg": 14.4632701422,
+   "median": 5.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": -79.5691906005,
+   "mom_txn_pct": -60.4405905789
+  },
+  {
+   "year_month": "2023-06",
+   "transactions": 2584,
+   "amount": 105932.0,
+   "avg": 40.9953560372,
+   "median": 10.0,
+   "partial": false,
+   "low_volume": false,
+   "mom_amount_pct": 333.8985827804,
+   "mom_txn_pct": 53.0805687204
+  },
+  {
+   "year_month": "2023-07",
+   "transactions": 293,
+   "amount": 1619.0,
+   "avg": 5.5255972696,
+   "median": 1.0,
+   "partial": true,
+   "low_volume": false,
+   "mom_amount_pct": null,
+   "mom_txn_pct": null
+  }
+ ],
+ "gap_months": [
+  "2021-02"
+ ],
+ "by_year": [
+  {
+   "year": 2020,
+   "transactions": 1,
+   "amount": 50.0,
+   "avg": 50.0
+  },
+  {
+   "year": 2021,
+   "transactions": 4177,
+   "amount": 157396.0,
+   "avg": 37.6815896576
+  },
+  {
+   "year": 2022,
+   "transactions": 21195,
+   "amount": 932600.0,
+   "avg": 44.0009436188
+  },
+  {
+   "year": 2023,
+   "transactions": 15557,
+   "amount": 447499.0,
+   "avg": 28.7651218101
+  }
+ ],
+ "by_dow": [
+  {
+   "day_of_week": "السبت",
+   "transactions": 4960,
+   "amount": 127507.0
+  },
+  {
+   "day_of_week": "الأحد",
+   "transactions": 5219,
+   "amount": 189361.0
+  },
+  {
+   "day_of_week": "الاثنين",
+   "transactions": 5662,
+   "amount": 256550.0
+  },
+  {
+   "day_of_week": "الثلاثاء",
+   "transactions": 6229,
+   "amount": 163628.0
+  },
+  {
+   "day_of_week": "الأربعاء",
+   "transactions": 5484,
+   "amount": 303406.0
+  },
+  {
+   "day_of_week": "الخميس",
+   "transactions": 5636,
+   "amount": 283862.0
+  },
+  {
+   "day_of_week": "الجمعة",
+   "transactions": 7740,
+   "amount": 213231.0
+  }
+ ],
+ "by_hour": [
+  {
+   "hour": 0,
+   "transactions": 1262,
+   "amount": 35505.0
+  },
+  {
+   "hour": 1,
+   "transactions": 1385,
+   "amount": 48047.0
+  },
+  {
+   "hour": 2,
+   "transactions": 2296,
+   "amount": 73741.0
+  },
+  {
+   "hour": 3,
+   "transactions": 2082,
+   "amount": 37931.0
+  },
+  {
+   "hour": 4,
+   "transactions": 2123,
+   "amount": 35002.0
+  },
+  {
+   "hour": 5,
+   "transactions": 2052,
+   "amount": 39564.0
+  },
+  {
+   "hour": 6,
+   "transactions": 1899,
+   "amount": 24293.0
+  },
+  {
+   "hour": 7,
+   "transactions": 2605,
+   "amount": 31682.0
+  },
+  {
+   "hour": 8,
+   "transactions": 1704,
+   "amount": 30167.0
+  },
+  {
+   "hour": 9,
+   "transactions": 1463,
+   "amount": 33614.0
+  },
+  {
+   "hour": 10,
+   "transactions": 1392,
+   "amount": 28697.0
+  },
+  {
+   "hour": 11,
+   "transactions": 1264,
+   "amount": 32498.0
+  },
+  {
+   "hour": 12,
+   "transactions": 1909,
+   "amount": 58384.0
+  },
+  {
+   "hour": 13,
+   "transactions": 1697,
+   "amount": 46077.0
+  },
+  {
+   "hour": 14,
+   "transactions": 1437,
+   "amount": 33032.0
+  },
+  {
+   "hour": 15,
+   "transactions": 1522,
+   "amount": 48948.0
+  },
+  {
+   "hour": 16,
+   "transactions": 1746,
+   "amount": 61172.0
+  },
+  {
+   "hour": 17,
+   "transactions": 2250,
+   "amount": 44731.0
+  },
+  {
+   "hour": 18,
+   "transactions": 1973,
+   "amount": 45256.0
+  },
+  {
+   "hour": 19,
+   "transactions": 1523,
+   "amount": 73625.0
+  },
+  {
+   "hour": 20,
+   "transactions": 1333,
+   "amount": 199998.0
+  },
+  {
+   "hour": 21,
+   "transactions": 1301,
+   "amount": 232171.0
+  },
+  {
+   "hour": 22,
+   "transactions": 1392,
+   "amount": 165591.0
+  },
+  {
+   "hour": 23,
+   "transactions": 1320,
+   "amount": 77819.0
+  }
+ ],
+ "initiatives": [
+  {
+   "initiative": "مشروع",
+   "amount": 609166.0,
+   "transactions": 15091,
+   "avg": 40.366178517,
+   "median": 10.0,
+   "donors": 943,
+   "amount_share_pct": 39.6193932535,
+   "txn_share_pct": 36.8702663083
+  },
+  {
+   "initiative": "فرجت",
+   "amount": 110068.0,
+   "transactions": 1598,
+   "avg": 68.8785982478,
+   "median": 10.0,
+   "donors": 431,
+   "amount_share_pct": 7.1586847865,
+   "txn_share_pct": 3.9042267286
+  },
+  {
+   "initiative": "الحملات المخصصة",
+   "amount": 100428.0,
+   "transactions": 2086,
+   "avg": 48.1438159156,
+   "median": 10.0,
+   "donors": 553,
+   "amount_share_pct": 6.531711267,
+   "txn_share_pct": 5.0965062301
+  },
+  {
+   "initiative": "إغاثة",
+   "amount": 98047.0,
+   "transactions": 2370,
+   "avg": 41.3700421941,
+   "median": 10.0,
+   "donors": 373,
+   "amount_share_pct": 6.3768540108,
+   "txn_share_pct": 5.7903738089
+  },
+  {
+   "initiative": "التبرع الدوري",
+   "amount": 97744.0,
+   "transactions": 11274,
+   "avg": 8.6698598545,
+   "median": 1.0,
+   "donors": 106,
+   "amount_share_pct": 6.3571472705,
+   "txn_share_pct": 27.5445883215
+  },
+  {
+   "initiative": "تيسرت التنفيذ القضائي",
+   "amount": 86502.0,
+   "transactions": 437,
+   "avg": 197.9450800915,
+   "median": 10.0,
+   "donors": 180,
+   "amount_share_pct": 5.6259816786,
+   "txn_share_pct": 1.0676765209
+  },
+  {
+   "initiative": "فرجت - تبرع سريع",
+   "amount": 73678.0,
+   "transactions": 991,
+   "avg": 74.3471241171,
+   "median": 10.0,
+   "donors": 284,
+   "amount_share_pct": 4.7919247892,
+   "txn_share_pct": 2.4212069387
+  },
+  {
+   "initiative": "كفالة الأيتام",
+   "amount": 55300.0,
+   "transactions": 132,
+   "avg": 418.9393939394,
+   "median": 300.0,
+   "donors": 68,
+   "amount_share_pct": 3.5966426999,
+   "txn_share_pct": 0.3225018324
+  },
+  {
+   "initiative": "فرصة عامة",
+   "amount": 54232.0,
+   "transactions": 3100,
+   "avg": 17.4941935484,
+   "median": 10.0,
+   "donors": 442,
+   "amount_share_pct": 3.5271813183,
+   "txn_share_pct": 7.5739066699
+  },
+  {
+   "initiative": "الأضاحي",
+   "amount": 49797.0,
+   "transactions": 65,
+   "avg": 766.1076923077,
+   "median": 799.0,
+   "donors": 53,
+   "amount_share_pct": 3.2387344761,
+   "txn_share_pct": 0.1588077205
+  },
+  {
+   "initiative": "زكاة الفطر",
+   "amount": 47360.0,
+   "transactions": 462,
+   "avg": 102.5108225108,
+   "median": 84.0,
+   "donors": 290,
+   "amount_share_pct": 3.08023505,
+   "txn_share_pct": 1.1287564134
+  },
+  {
+   "initiative": "المتجر",
+   "amount": 45497.0,
+   "transactions": 713,
+   "avg": 63.8106591865,
+   "median": 23.0,
+   "donors": 248,
+   "amount_share_pct": 2.9590678647,
+   "txn_share_pct": 1.7419985341
+  },
+  {
+   "initiative": "زكاة المال",
+   "amount": 28421.0,
+   "transactions": 11,
+   "avg": 2583.7272727273,
+   "median": 546.0,
+   "donors": 10,
+   "amount_share_pct": 1.8484662238,
+   "txn_share_pct": 0.0268751527
+  },
+  {
+   "initiative": "زكاة",
+   "amount": 25731.0,
+   "transactions": 34,
+   "avg": 756.7941176471,
+   "median": 130.0,
+   "donors": 24,
+   "amount_share_pct": 1.6735119948,
+   "txn_share_pct": 0.0830686538
+  },
+  {
+   "initiative": "تيسرت - تبرع سريع",
+   "amount": 14264.0,
+   "transactions": 801,
+   "avg": 17.8077403246,
+   "median": 10.0,
+   "donors": 207,
+   "amount_share_pct": 0.9277126848,
+   "txn_share_pct": 1.9569997557
+  },
+  {
+   "initiative": "تيسرت الكهرباء",
+   "amount": 13045.0,
+   "transactions": 205,
+   "avg": 63.6341463415,
+   "median": 10.0,
+   "donors": 93,
+   "amount_share_pct": 0.8484304524,
+   "txn_share_pct": 0.5008551185
+  },
+  {
+   "initiative": "العناية بالمساجد",
+   "amount": 11616.0,
+   "transactions": 541,
+   "avg": 21.471349353,
+   "median": 5.0,
+   "donors": 131,
+   "amount_share_pct": 0.7554900832,
+   "txn_share_pct": 1.3217688737
+  },
+  {
+   "initiative": "الأوقاف",
+   "amount": 8490.0,
+   "transactions": 290,
+   "avg": 29.275862069,
+   "median": 10.0,
+   "donors": 63,
+   "amount_share_pct": 0.5521789606,
+   "txn_share_pct": 0.708526753
+  },
+  {
+   "initiative": "الهدية",
+   "amount": 5019.0,
+   "transactions": 495,
+   "avg": 10.1393939394,
+   "median": 3.0,
+   "donors": 121,
+   "amount_share_pct": 0.3264294704,
+   "txn_share_pct": 1.2093818715
+  },
+  {
+   "initiative": "تملك المساكن",
+   "amount": 2840.0,
+   "transactions": 232,
+   "avg": 12.2413793103,
+   "median": 5.0,
+   "donors": 76,
+   "amount_share_pct": 0.184710041,
+   "txn_share_pct": 0.5668214024
+  },
+  {
+   "initiative": "ملبغ زكاة إضافي",
+   "amount": 200.0,
+   "transactions": 1,
+   "avg": 200.0,
+   "median": 200.0,
+   "donors": 1,
+   "amount_share_pct": 0.0130077494,
+   "txn_share_pct": 0.0024431957
+  },
+  {
+   "initiative": "أمنيات الأيتام",
+   "amount": 100.0,
+   "transactions": 1,
+   "avg": 100.0,
+   "median": 100.0,
+   "donors": 1,
+   "amount_share_pct": 0.0065038747,
+   "txn_share_pct": 0.0024431957
+  }
+ ],
+ "payments": [
+  {
+   "payment_method": "بطاقة الدفع",
+   "amount": 861096.0,
+   "transactions": 18159,
+   "avg": 47.4197918388,
+   "median": 5.0,
+   "amount_share_pct": 56.0046047433,
+   "txn_share_pct": 44.3659907159
+  },
+  {
+   "payment_method": "أبل باى",
+   "amount": 674490.0,
+   "transactions": 22657,
+   "avg": 29.7696076268,
+   "median": 10.0,
+   "amount_share_pct": 43.8679843517,
+   "txn_share_pct": 55.3554849743
+  },
+  {
+   "payment_method": "نقاط قطاف",
+   "amount": 1959.0,
+   "transactions": 114,
+   "avg": 17.1842105263,
+   "median": 10.0,
+   "amount_share_pct": 0.127410905,
+   "txn_share_pct": 0.2785243098
+  }
+ ],
+ "top_titles_by_amount": [
+  {
+   "title": "تفريج كرب",
+   "amount": 110501.0,
+   "transactions": 1051,
+   "avg": 105.1389153187,
+   "donors": 258
+  },
+  {
+   "title": "صدقة",
+   "amount": 73540.0,
+   "transactions": 1581,
+   "avg": 46.5148640101,
+   "donors": 469
+  },
+  {
+   "title": "إعانة سجناء",
+   "amount": 66897.0,
+   "transactions": 335,
+   "avg": 199.6925373134,
+   "donors": 95
+  },
+  {
+   "title": "تبرع سريع - فرجت",
+   "amount": 60027.0,
+   "transactions": 268,
+   "avg": 223.9813432836,
+   "donors": 105
+  },
+  {
+   "title": "أهلاً، أنا",
+   "amount": 52200.0,
+   "transactions": 123,
+   "avg": 424.3902439024,
+   "donors": 67
+  },
+  {
+   "title": "تبرع يومي - رعاية الأيتام",
+   "amount": 48610.0,
+   "transactions": 4539,
+   "avg": 10.7094073584,
+   "donors": 44
+  },
+  {
+   "title": "تبرع سريع - توكلنا",
+   "amount": 47764.0,
+   "transactions": 2898,
+   "avg": 16.4817115252,
+   "donors": 364
+  },
+  {
+   "title": "زكاة الفطر",
+   "amount": 47360.0,
+   "transactions": 462,
+   "avg": 102.5108225108,
+   "donors": 290
+  },
+  {
+   "title": "إعانة السجناء",
+   "amount": 43045.0,
+   "transactions": 1259,
+   "avg": 34.189833201,
+   "donors": 345
+  },
+  {
+   "title": "أضحية - خروف",
+   "amount": 32088.0,
+   "transactions": 42,
+   "avg": 764.0,
+   "donors": 37
+  },
+  {
+   "title": "زكاة المال",
+   "amount": 28421.0,
+   "transactions": 11,
+   "avg": 2583.7272727273,
+   "donors": 10
+  },
+  {
+   "title": "كفالة الأيتام",
+   "amount": 28045.0,
+   "transactions": 459,
+   "avg": 61.1002178649,
+   "donors": 184
+  },
+  {
+   "title": "السلال الغذائية للأسر المحتاجة",
+   "amount": 26324.0,
+   "transactions": 430,
+   "avg": 61.2186046512,
+   "donors": 147
+  },
+  {
+   "title": "سقيا الماء",
+   "amount": 23736.0,
+   "transactions": 636,
+   "avg": 37.320754717,
+   "donors": 230
+  },
+  {
+   "title": "كفالة الأرامل والمطلقات",
+   "amount": 22578.0,
+   "transactions": 286,
+   "avg": 78.9440559441,
+   "donors": 124
+  }
+ ],
+ "top_titles_by_count": [
+  {
+   "title": "تبرع يومي - رعاية الأيتام",
+   "amount": 48610.0,
+   "transactions": 4539,
+   "avg": 10.7094073584,
+   "donors": 44
+  },
+  {
+   "title": "تبرع يومي - سقيا الماء",
+   "amount": 9009.0,
+   "transactions": 3344,
+   "avg": 2.6940789474,
+   "donors": 34
+  },
+  {
+   "title": "تبرع سريع - توكلنا",
+   "amount": 47764.0,
+   "transactions": 2898,
+   "avg": 16.4817115252,
+   "donors": 364
+  },
+  {
+   "title": "صدقة",
+   "amount": 73540.0,
+   "transactions": 1581,
+   "avg": 46.5148640101,
+   "donors": 469
+  },
+  {
+   "title": "تبرع يومي - إعانة المعسرين",
+   "amount": 10478.0,
+   "transactions": 1325,
+   "avg": 7.9079245283,
+   "donors": 22
+  },
+  {
+   "title": "إعانة السجناء",
+   "amount": 43045.0,
+   "transactions": 1259,
+   "avg": 34.189833201,
+   "donors": 345
+  },
+  {
+   "title": "تفريج كرب",
+   "amount": 110501.0,
+   "transactions": 1051,
+   "avg": 105.1389153187,
+   "donors": 258
+  },
+  {
+   "title": "تبرع يومي - الرعاية الصحية",
+   "amount": 5317.0,
+   "transactions": 1040,
+   "avg": 5.1125,
+   "donors": 11
+  },
+  {
+   "title": "تبرع سريع - فرص عامة",
+   "amount": 20874.0,
+   "transactions": 1001,
+   "avg": 20.8531468531,
+   "donors": 171
+  },
+  {
+   "title": "تفريج كربة",
+   "amount": 21043.0,
+   "transactions": 824,
+   "avg": 25.5376213592,
+   "donors": 272
+  },
+  {
+   "title": "تبرع يومي - الأوقاف",
+   "amount": 7312.0,
+   "transactions": 794,
+   "avg": 9.2090680101,
+   "donors": 11
+  },
+  {
+   "title": "سقيا الماء",
+   "amount": 23736.0,
+   "transactions": 636,
+   "avg": 37.320754717,
+   "donors": 230
+  },
+  {
+   "title": "الكفالة السنوية للأيتام",
+   "amount": 18092.0,
+   "transactions": 625,
+   "avg": 28.9472,
+   "donors": 210
+  },
+  {
+   "title": "زكاة الفطر",
+   "amount": 47360.0,
+   "transactions": 462,
+   "avg": 102.5108225108,
+   "donors": 290
+  },
+  {
+   "title": "كفالة الأيتام",
+   "amount": 28045.0,
+   "transactions": 459,
+   "avg": 61.1002178649,
+   "donors": 184
+  }
+ ],
+ "top_titles_by_avg_min20": [
+  {
+   "title": "أضحية - خروف",
+   "amount": 32088.0,
+   "transactions": 42,
+   "avg": 764.0,
+   "donors": 37
+  },
+  {
+   "title": "إخراج الزكاة",
+   "amount": 10404.0,
+   "transactions": 23,
+   "avg": 452.347826087,
+   "donors": 14
+  },
+  {
+   "title": "أهلاً، أنا",
+   "amount": 52200.0,
+   "transactions": 123,
+   "avg": 424.3902439024,
+   "donors": 67
+  },
+  {
+   "title": "السلال الغذائية الرمضانية",
+   "amount": 15905.0,
+   "transactions": 62,
+   "avg": 256.5322580645,
+   "donors": 36
+  },
+  {
+   "title": "سحور الصائمين",
+   "amount": 5238.0,
+   "transactions": 21,
+   "avg": 249.4285714286,
+   "donors": 15
+  },
+  {
+   "title": "تبرع سريع - فرجت",
+   "amount": 60027.0,
+   "transactions": 268,
+   "avg": 223.9813432836,
+   "donors": 105
+  },
+  {
+   "title": "توفير المولدات الكهربائية للأسر المحتاجة",
+   "amount": 5372.0,
+   "transactions": 26,
+   "avg": 206.6153846154,
+   "donors": 19
+  },
+  {
+   "title": "سداد إيجار منازل الأسر المعسرة",
+   "amount": 5775.0,
+   "transactions": 28,
+   "avg": 206.25,
+   "donors": 23
+  },
+  {
+   "title": "دعم المعسرين المقبلين على الزواج",
+   "amount": 5624.0,
+   "transactions": 28,
+   "avg": 200.8571428571,
+   "donors": 19
+  },
+  {
+   "title": "إعانة سجناء",
+   "amount": 66897.0,
+   "transactions": 335,
+   "avg": 199.6925373134,
+   "donors": 95
+  }
+ ],
+ "donors": {
+  "observed_donors": 1371,
+  "repeat_donors": 1179,
+  "repeat_rate_pct": 85.99562363238512,
+  "single_donors": 192,
+  "median_frequency": 7.0,
+  "mean_frequency": 29.85412107950401,
+  "median_monetary": 144.0,
+  "mean_monetary": 1121.4770240700218,
+  "top1_donor_amount_share_pct": 27.1819686578279,
+  "top1_donor_transactions": 93,
+  "top1pct_donors_amount_share_pct": 50.34291679267924,
+  "top10pct_donors_amount_share_pct": 79.37400206172828,
+  "mean_monetary_without_top1": 817.2335766423357,
+  "mean_txn_without_top1": 27.41655851311311,
+  "recency_median_days": 86.0,
+  "ref_date": "2023-07-14",
+  "freq_dist": {
+   "1": 192,
+   "2": 127,
+   "3-5": 276,
+   "6-10": 245,
+   "11-20": 175,
+   "21-50": 200,
+   "51+": 156
+  },
+  "value_dist": {
+   "10 فأقل": 131,
+   "11-50": 274,
+   "51-100": 166,
+   "101-500": 451,
+   "501-1,000": 149,
+   "1,001-5,000": 159,
+   "5,000+": 41
+  },
+  "recency_dist": {
+   "30 يوماً فأقل": 446,
+   "31-90": 317,
+   "91-180": 206,
+   "181-365": 119,
+   "أكثر من 365": 283
+  }
+ },
+ "survival": {
+  "cohort": 1290,
+  "returned": 1137,
+  "censored": 153,
+  "entry_cutoff_days": 90,
+  "median_days_to_second": 30.0,
+  "return_rate_pct": {
+   "30": 50.07751937984495,
+   "60": 55.19379844961241,
+   "90": 59.457364341085274
+  },
+  "curve": [
+   {
+    "day": 0,
+    "survival": 0.6961240310077519
+   },
+   {
+    "day": 1,
+    "survival": 0.6596899224806201
+   },
+   {
+    "day": 2,
+    "survival": 0.6341085271317829
+   },
+   {
+    "day": 3,
+    "survival": 0.6162790697674418
+   },
+   {
+    "day": 4,
+    "survival": 0.6054263565891472
+   },
+   {
+    "day": 5,
+    "survival": 0.5976744186046511
+   },
+   {
+    "day": 6,
+    "survival": 0.5922480620155038
+   },
+   {
+    "day": 7,
+    "survival": 0.5844961240310077
+   },
+   {
+    "day": 8,
+    "survival": 0.57984496124031
+   },
+   {
+    "day": 9,
+    "survival": 0.5705426356589147
+   },
+   {
+    "day": 10,
+    "survival": 0.5658914728682171
+   },
+   {
+    "day": 11,
+    "survival": 0.5643410852713179
+   },
+   {
+    "day": 12,
+    "survival": 0.5627906976744187
+   },
+   {
+    "day": 13,
+    "survival": 0.5565891472868217
+   },
+   {
+    "day": 14,
+    "survival": 0.5534883720930233
+   },
+   {
+    "day": 15,
+    "survival": 0.5488372093023256
+   },
+   {
+    "day": 16,
+    "survival": 0.5472868217054263
+   },
+   {
+    "day": 17,
+    "survival": 0.541860465116279
+   },
+   {
+    "day": 18,
+    "survival": 0.5372093023255814
+   },
+   {
+    "day": 19,
+    "survival": 0.5317829457364341
+   },
+   {
+    "day": 20,
+    "survival": 0.5263565891472869
+   },
+   {
+    "day": 22,
+    "survival": 0.5248062015503877
+   },
+   {
+    "day": 23,
+    "survival": 0.5193798449612405
+   },
+   {
+    "day": 24,
+    "survival": 0.5147286821705428
+   },
+   {
+    "day": 25,
+    "survival": 0.5139534883720932
+   },
+   {
+    "day": 26,
+    "survival": 0.5116279069767444
+   },
+   {
+    "day": 27,
+    "survival": 0.5077519379844964
+   },
+   {
+    "day": 28,
+    "survival": 0.5062015503875971
+   },
+   {
+    "day": 29,
+    "survival": 0.5038759689922482
+   },
+   {
+    "day": 30,
+    "survival": 0.49922480620155046
+   },
+   {
+    "day": 31,
+    "survival": 0.4945736434108528
+   },
+   {
+    "day": 32,
+    "survival": 0.49302325581395356
+   },
+   {
+    "day": 34,
+    "survival": 0.48759689922480626
+   },
+   {
+    "day": 35,
+    "survival": 0.486046511627907
+   },
+   {
+    "day": 36,
+    "survival": 0.4844961240310078
+   },
+   {
+    "day": 37,
+    "survival": 0.4806201550387597
+   },
+   {
+    "day": 38,
+    "survival": 0.4782945736434109
+   },
+   {
+    "day": 39,
+    "survival": 0.47519379844961246
+   },
+   {
+    "day": 40,
+    "survival": 0.4744186046511628
+   },
+   {
+    "day": 41,
+    "survival": 0.472093023255814
+   },
+   {
+    "day": 42,
+    "survival": 0.4713178294573644
+   },
+   {
+    "day": 43,
+    "survival": 0.47054263565891474
+   },
+   {
+    "day": 44,
+    "survival": 0.4682170542635659
+   },
+   {
+    "day": 45,
+    "survival": 0.4674418604651163
+   },
+   {
+    "day": 46,
+    "survival": 0.4658914728682171
+   },
+   {
+    "day": 48,
+    "survival": 0.46434108527131784
+   },
+   {
+    "day": 49,
+    "survival": 0.462015503875969
+   },
+   {
+    "day": 50,
+    "survival": 0.4596899224806202
+   },
+   {
+    "day": 51,
+    "survival": 0.45813953488372094
+   },
+   {
+    "day": 54,
+    "survival": 0.45736434108527135
+   },
+   {
+    "day": 55,
+    "survival": 0.4542635658914729
+   },
+   {
+    "day": 56,
+    "survival": 0.45271317829457364
+   },
+   {
+    "day": 57,
+    "survival": 0.4511627906976744
+   },
+   {
+    "day": 58,
+    "survival": 0.4503875968992248
+   },
+   {
+    "day": 59,
+    "survival": 0.4496124031007752
+   },
+   {
+    "day": 60,
+    "survival": 0.448062015503876
+   },
+   {
+    "day": 61,
+    "survival": 0.44651162790697674
+   },
+   {
+    "day": 62,
+    "survival": 0.4434108527131783
+   },
+   {
+    "day": 63,
+    "survival": 0.4410852713178295
+   },
+   {
+    "day": 64,
+    "survival": 0.4372093023255814
+   },
+   {
+    "day": 65,
+    "survival": 0.4364341085271318
+   },
+   {
+    "day": 66,
+    "survival": 0.4333333333333334
+   },
+   {
+    "day": 67,
+    "survival": 0.4310077519379846
+   },
+   {
+    "day": 68,
+    "survival": 0.42868217054263574
+   },
+   {
+    "day": 69,
+    "survival": 0.4279069767441861
+   },
+   {
+    "day": 70,
+    "survival": 0.4271317829457365
+   },
+   {
+    "day": 71,
+    "survival": 0.4263565891472869
+   },
+   {
+    "day": 72,
+    "survival": 0.4240310077519381
+   },
+   {
+    "day": 73,
+    "survival": 0.4209302325581396
+   },
+   {
+    "day": 75,
+    "survival": 0.42015503875969
+   },
+   {
+    "day": 76,
+    "survival": 0.4193798449612404
+   },
+   {
+    "day": 77,
+    "survival": 0.4178294573643412
+   },
+   {
+    "day": 79,
+    "survival": 0.4147286821705427
+   },
+   {
+    "day": 80,
+    "survival": 0.41395348837209306
+   },
+   {
+    "day": 83,
+    "survival": 0.41162790697674423
+   },
+   {
+    "day": 84,
+    "survival": 0.4108527131782946
+   },
+   {
+    "day": 85,
+    "survival": 0.410077519379845
+   },
+   {
+    "day": 86,
+    "survival": 0.40930232558139534
+   },
+   {
+    "day": 87,
+    "survival": 0.4085271317829457
+   },
+   {
+    "day": 88,
+    "survival": 0.40697674418604646
+   },
+   {
+    "day": 89,
+    "survival": 0.40620155038759687
+   },
+   {
+    "day": 90,
+    "survival": 0.4054263565891473
+   },
+   {
+    "day": 91,
+    "survival": 0.40464967774510674
+   },
+   {
+    "day": 92,
+    "survival": 0.4038715052879046
+   },
+   {
+    "day": 93,
+    "survival": 0.40309032249237675
+   },
+   {
+    "day": 98,
+    "survival": 0.40151882026043767
+   },
+   {
+    "day": 99,
+    "survival": 0.3999442366515732
+   },
+   {
+    "day": 100,
+    "survival": 0.399156944847141
+   },
+   {
+    "day": 102,
+    "survival": 0.3983680971300518
+   },
+   {
+    "day": 103,
+    "survival": 0.3960015539787841
+   },
+   {
+    "day": 104,
+    "survival": 0.3952127062616949
+   },
+   {
+    "day": 105,
+    "survival": 0.3944222808491715
+   },
+   {
+    "day": 106,
+    "survival": 0.39363026823702457
+   },
+   {
+    "day": 108,
+    "survival": 0.39283665882525637
+   },
+   {
+    "day": 110,
+    "survival": 0.39124944000171996
+   },
+   {
+    "day": 111,
+    "survival": 0.39045583058995176
+   },
+   {
+    "day": 113,
+    "survival": 0.3888686117664154
+   },
+   {
+    "day": 114,
+    "survival": 0.38648778353111085
+   },
+   {
+    "day": 115,
+    "survival": 0.38569417411934265
+   },
+   {
+    "day": 117,
+    "survival": 0.38490056470757444
+   },
+   {
+    "day": 118,
+    "survival": 0.38410531560693895
+   },
+   {
+    "day": 119,
+    "survival": 0.38331006650630345
+   },
+   {
+    "day": 120,
+    "survival": 0.3817195683050325
+   },
+   {
+    "day": 121,
+    "survival": 0.3777433228018551
+   },
+   {
+    "day": 123,
+    "survival": 0.37694639596050095
+   },
+   {
+    "day": 124,
+    "survival": 0.3753525422777927
+   },
+   {
+    "day": 125,
+    "survival": 0.37455561543643856
+   },
+   {
+    "day": 126,
+    "survival": 0.37375868859508443
+   },
+   {
+    "day": 128,
+    "survival": 0.3721648349123762
+   },
+   {
+    "day": 129,
+    "survival": 0.37136790807102205
+   },
+   {
+    "day": 130,
+    "survival": 0.3705692674085037
+   },
+   {
+    "day": 131,
+    "survival": 0.36976890182014843
+   },
+   {
+    "day": 132,
+    "survival": 0.36896853623179315
+   },
+   {
+    "day": 133,
+    "survival": 0.3681681706434379
+   },
+   {
+    "day": 134,
+    "survival": 0.3673678050550826
+   },
+   {
+    "day": 138,
+    "survival": 0.36656569194360866
+   },
+   {
+    "day": 140,
+    "survival": 0.3657635788321347
+   },
+   {
+    "day": 141,
+    "survival": 0.3641593526091867
+   },
+   {
+    "day": 142,
+    "survival": 0.3633572394977127
+   },
+   {
+    "day": 143,
+    "survival": 0.3625551263862387
+   },
+   {
+    "day": 146,
+    "survival": 0.36095090016329073
+   },
+   {
+    "day": 147,
+    "survival": 0.35934667394034275
+   },
+   {
+    "day": 151,
+    "survival": 0.35854456082886876
+   },
+   {
+    "day": 152,
+    "survival": 0.3577424477173948
+   },
+   {
+    "day": 154,
+    "survival": 0.3561382214944468
+   },
+   {
+    "day": 155,
+    "survival": 0.3553361083829728
+   },
+   {
+    "day": 156,
+    "survival": 0.3545339952714988
+   },
+   {
+    "day": 157,
+    "survival": 0.3537318821600248
+   },
+   {
+    "day": 158,
+    "survival": 0.35292976904855083
+   },
+   {
+    "day": 161,
+    "survival": 0.35212582880014864
+   },
+   {
+    "day": 163,
+    "survival": 0.3505179483033443
+   },
+   {
+    "day": 164,
+    "survival": 0.3497140080549421
+   },
+   {
+    "day": 165,
+    "survival": 0.3473021873097356
+   },
+   {
+    "day": 167,
+    "survival": 0.3464982470613335
+   },
+   {
+    "day": 172,
+    "survival": 0.34569243718444664
+   },
+   {
+    "day": 173,
+    "survival": 0.34408081743067304
+   },
+   {
+    "day": 175,
+    "survival": 0.3424691976768994
+   },
+   {
+    "day": 176,
+    "survival": 0.34166338780001254
+   },
+   {
+    "day": 179,
+    "survival": 0.3408556729352371
+   },
+   {
+    "day": 184,
+    "survival": 0.3392402432056862
+   },
+   {
+    "day": 185,
+    "survival": 0.3376248134761353
+   },
+   {
+    "day": 186,
+    "survival": 0.3368170986113599
+   },
+   {
+    "day": 187,
+    "survival": 0.33600938374658446
+   },
+   {
+    "day": 188,
+    "survival": 0.335201668881809
+   },
+   {
+    "day": 189,
+    "survival": 0.3343939540170336
+   },
+   {
+    "day": 191,
+    "survival": 0.33358623915225816
+   },
+   {
+    "day": 192,
+    "survival": 0.33116309455793186
+   },
+   {
+    "day": 194,
+    "survival": 0.3303553796931564
+   },
+   {
+    "day": 199,
+    "survival": 0.329545685135085
+   },
+   {
+    "day": 200,
+    "survival": 0.3287359905770135
+   },
+   {
+    "day": 203,
+    "survival": 0.327926296018942
+   },
+   {
+    "day": 205,
+    "survival": 0.32630289851389777
+   },
+   {
+    "day": 206,
+    "survival": 0.32549119976137564
+   },
+   {
+    "day": 209,
+    "survival": 0.3246795010088535
+   },
+   {
+    "day": 213,
+    "survival": 0.3238657679236183
+   },
+   {
+    "day": 214,
+    "survival": 0.3222383017531479
+   },
+   {
+    "day": 216,
+    "survival": 0.32061083558267744
+   },
+   {
+    "day": 218,
+    "survival": 0.31979710249744225
+   },
+   {
+    "day": 219,
+    "survival": 0.31898336941220706
+   },
+   {
+    "day": 223,
+    "survival": 0.3173559032417366
+   },
+   {
+    "day": 224,
+    "survival": 0.3165421701565014
+   },
+   {
+    "day": 225,
+    "survival": 0.31410097090079575
+   },
+   {
+    "day": 227,
+    "survival": 0.3132872378155605
+   },
+   {
+    "day": 228,
+    "survival": 0.31247350473032526
+   },
+   {
+    "day": 229,
+    "survival": 0.31165977164509007
+   },
+   {
+    "day": 232,
+    "survival": 0.3108460385598548
+   },
+   {
+    "day": 234,
+    "survival": 0.3100301696922437
+   },
+   {
+    "day": 236,
+    "survival": 0.3092143008246325
+   },
+   {
+    "day": 240,
+    "survival": 0.3083984319570213
+   },
+   {
+    "day": 241,
+    "survival": 0.3075825630894101
+   },
+   {
+    "day": 242,
+    "survival": 0.3067666942217989
+   },
+   {
+    "day": 243,
+    "survival": 0.30595082535418777
+   },
+   {
+    "day": 244,
+    "survival": 0.30513495648657657
+   },
+   {
+    "day": 245,
+    "survival": 0.3043190876189654
+   },
+   {
+    "day": 246,
+    "survival": 0.3035032187513543
+   },
+   {
+    "day": 247,
+    "survival": 0.30268734988374313
+   },
+   {
+    "day": 248,
+    "survival": 0.3010556121485208
+   },
+   {
+    "day": 251,
+    "survival": 0.30023974328090963
+   },
+   {
+    "day": 252,
+    "survival": 0.2986035593938202
+   },
+   {
+    "day": 254,
+    "survival": 0.2977854674502755
+   },
+   {
+    "day": 255,
+    "survival": 0.2961447761695577
+   },
+   {
+    "day": 256,
+    "survival": 0.2953244305291988
+   },
+   {
+    "day": 257,
+    "survival": 0.29450408488883995
+   },
+   {
+    "day": 259,
+    "survival": 0.29368373924848107
+   },
+   {
+    "day": 260,
+    "survival": 0.2928610957211744
+   },
+   {
+    "day": 261,
+    "survival": 0.2903931651392544
+   },
+   {
+    "day": 262,
+    "survival": 0.2895705216119477
+   },
+   {
+    "day": 263,
+    "survival": 0.28874787808464103
+   },
+   {
+    "day": 264,
+    "survival": 0.28710259103002767
+   },
+   {
+    "day": 266,
+    "survival": 0.28545730397541436
+   },
+   {
+    "day": 267,
+    "survival": 0.28463466044810765
+   },
+   {
+    "day": 268,
+    "survival": 0.283812016920801
+   },
+   {
+    "day": 270,
+    "survival": 0.28298937339349434
+   },
+   {
+    "day": 272,
+    "survival": 0.28134408633888097
+   },
+   {
+    "day": 273,
+    "survival": 0.27969879928426766
+   },
+   {
+    "day": 275,
+    "survival": 0.278876155756961
+   },
+   {
+    "day": 277,
+    "survival": 0.27722600098916833
+   },
+   {
+    "day": 278,
+    "survival": 0.276400923605272
+   },
+   {
+    "day": 279,
+    "survival": 0.27557584622137565
+   },
+   {
+    "day": 280,
+    "survival": 0.27310061406968666
+   },
+   {
+    "day": 282,
+    "survival": 0.27227553668579035
+   },
+   {
+    "day": 283,
+    "survival": 0.271450459301894
+   },
+   {
+    "day": 284,
+    "survival": 0.2698003045341013
+   },
+   {
+    "day": 285,
+    "survival": 0.26897522715020494
+   },
+   {
+    "day": 287,
+    "survival": 0.26815014976630863
+   },
+   {
+    "day": 290,
+    "survival": 0.2623567823330859
+   },
+   {
+    "day": 291,
+    "survival": 0.26152653935101916
+   },
+   {
+    "day": 292,
+    "survival": 0.2606962963689524
+   },
+   {
+    "day": 293,
+    "survival": 0.259035810404819
+   },
+   {
+    "day": 294,
+    "survival": 0.25820289783117006
+   },
+   {
+    "day": 297,
+    "survival": 0.25736998525752114
+   },
+   {
+    "day": 299,
+    "survival": 0.2548712475365743
+   },
+   {
+    "day": 300,
+    "survival": 0.25320542238927646
+   },
+   {
+    "day": 301,
+    "survival": 0.2498737720946807
+   },
+   {
+    "day": 302,
+    "survival": 0.24904085952103178
+   },
+   {
+    "day": 303,
+    "survival": 0.24820794694738285
+   },
+   {
+    "day": 304,
+    "survival": 0.24654212180008497
+   },
+   {
+    "day": 305,
+    "survival": 0.2448762966527871
+   },
+   {
+    "day": 306,
+    "survival": 0.2432047860954302
+   },
+   {
+    "day": 307,
+    "survival": 0.2415332755380733
+   },
+   {
+    "day": 310,
+    "survival": 0.24069752025939484
+   },
+   {
+    "day": 315,
+    "survival": 0.23985885294141787
+   },
+   {
+    "day": 316,
+    "survival": 0.23902018562344088
+   },
+   {
+    "day": 317,
+    "survival": 0.2373428509874869
+   },
+   {
+    "day": 318,
+    "survival": 0.2365041836695099
+   },
+   {
+    "day": 319,
+    "survival": 0.23566551635153293
+   },
+   {
+    "day": 320,
+    "survival": 0.23398818171557897
+   },
+   {
+    "day": 321,
+    "survival": 0.23314951439760198
+   },
+   {
+    "day": 323,
+    "survival": 0.232310847079625
+   },
+   {
+    "day": 324,
+    "survival": 0.231472179761648
+   },
+   {
+    "day": 325,
+    "survival": 0.229794845125694
+   },
+   {
+    "day": 326,
+    "survival": 0.22895617780771702
+   },
+   {
+    "day": 327,
+    "survival": 0.22727884317176306
+   },
+   {
+    "day": 328,
+    "survival": 0.2247628412178321
+   },
+   {
+    "day": 329,
+    "survival": 0.22224683926390115
+   },
+   {
+    "day": 331,
+    "survival": 0.2197308373099702
+   },
+   {
+    "day": 332,
+    "survival": 0.21889216999199324
+   },
+   {
+    "day": 333,
+    "survival": 0.21721483535603928
+   },
+   {
+    "day": 334,
+    "survival": 0.2155309994230467
+   },
+   {
+    "day": 335,
+    "survival": 0.21468908145655044
+   },
+   {
+    "day": 336,
+    "survival": 0.2130052455235579
+   },
+   {
+    "day": 337,
+    "survival": 0.21047949162406906
+   },
+   {
+    "day": 338,
+    "survival": 0.2096375736575728
+   },
+   {
+    "day": 339,
+    "survival": 0.2087956556910765
+   },
+   {
+    "day": 340,
+    "survival": 0.20711181975808396
+   },
+   {
+    "day": 341,
+    "survival": 0.20374414789209885
+   },
+   {
+    "day": 343,
+    "survival": 0.20290222992560258
+   },
+   {
+    "day": 344,
+    "survival": 0.20037647602611378
+   },
+   {
+    "day": 346,
+    "survival": 0.1995345580596175
+   },
+   {
+    "day": 347,
+    "survival": 0.1970088041601287
+   },
+   {
+    "day": 348,
+    "survival": 0.19532496822713616
+   },
+   {
+    "day": 349,
+    "survival": 0.19195729636115105
+   },
+   {
+    "day": 350,
+    "survival": 0.19026604264871802
+   },
+   {
+    "day": 351,
+    "survival": 0.188574788936285
+   },
+   {
+    "day": 352,
+    "survival": 0.18434665465520236
+   },
+   {
+    "day": 353,
+    "survival": 0.18096414723033627
+   },
+   {
+    "day": 354,
+    "survival": 0.17419913238060408
+   },
+   {
+    "day": 355,
+    "survival": 0.1724996286500616
+   },
+   {
+    "day": 356,
+    "survival": 0.17080012491951913
+   },
+   {
+    "day": 357,
+    "survival": 0.1682508693237054
+   },
+   {
+    "day": 358,
+    "survival": 0.1657016137278917
+   },
+   {
+    "day": 360,
+    "survival": 0.1640021099973492
+   },
+   {
+    "day": 362,
+    "survival": 0.16229375468487683
+   },
+   {
+    "day": 363,
+    "survival": 0.16143957702864065
+   }
+  ],
+  "groups": [
+   {
+    "name": "وسيلة الدفع في أول تبرع",
+    "levels": [
+     {
+      "name": "أبل باي",
+      "n": 780,
+      "median_days": 46.0,
+      "return_rate_pct": {
+       "30": 46.5384615384615,
+       "60": 52.56410256410251,
+       "90": 58.205128205128155
+      },
+      "curve": [
+       {
+        "day": 0,
+        "survival": 0.7371794871794872
+       },
+       {
+        "day": 1,
+        "survival": 0.712820512820513
+       },
+       {
+        "day": 2,
+        "survival": 0.6846153846153847
+       },
+       {
+        "day": 3,
+        "survival": 0.6602564102564104
+       },
+       {
+        "day": 4,
+        "survival": 0.6461538461538463
+       },
+       {
+        "day": 5,
+        "survival": 0.6397435897435899
+       },
+       {
+        "day": 6,
+        "survival": 0.6371794871794874
+       },
+       {
+        "day": 7,
+        "survival": 0.630769230769231
+       },
+       {
+        "day": 8,
+        "survival": 0.6256410256410259
+       },
+       {
+        "day": 9,
+        "survival": 0.6141025641025644
+       },
+       {
+        "day": 10,
+        "survival": 0.6115384615384618
+       },
+       {
+        "day": 11,
+        "survival": 0.6089743589743593
+       },
+       {
+        "day": 12,
+        "survival": 0.607692307692308
+       },
+       {
+        "day": 13,
+        "survival": 0.6025641025641029
+       },
+       {
+        "day": 14,
+        "survival": 0.6000000000000003
+       },
+       {
+        "day": 15,
+        "survival": 0.5935897435897439
+       },
+       {
+        "day": 16,
+        "survival": 0.5923076923076926
+       },
+       {
+        "day": 17,
+        "survival": 0.5871794871794875
+       },
+       {
+        "day": 18,
+        "survival": 0.5820512820512824
+       },
+       {
+        "day": 19,
+        "survival": 0.5743589743589748
+       },
+       {
+        "day": 20,
+        "survival": 0.5679487179487184
+       },
+       {
+        "day": 22,
+        "survival": 0.5666666666666671
+       },
+       {
+        "day": 23,
+        "survival": 0.561538461538462
+       },
+       {
+        "day": 24,
+        "survival": 0.5538461538461542
+       },
+       {
+        "day": 25,
+        "survival": 0.5525641025641029
+       },
+       {
+        "day": 26,
+        "survival": 0.5512820512820517
+       },
+       {
+        "day": 27,
+        "survival": 0.5448717948717953
+       },
+       {
+        "day": 28,
+        "survival": 0.5423076923076927
+       },
+       {
+        "day": 29,
+        "survival": 0.5384615384615389
+       },
+       {
+        "day": 30,
+        "survival": 0.534615384615385
+       },
+       {
+        "day": 31,
+        "survival": 0.5307692307692312
+       },
+       {
+        "day": 32,
+        "survival": 0.5282051282051287
+       },
+       {
+        "day": 34,
+        "survival": 0.520512820512821
+       },
+       {
+        "day": 35,
+        "survival": 0.5179487179487184
+       },
+       {
+        "day": 36,
+        "survival": 0.5166666666666672
+       },
+       {
+        "day": 37,
+        "survival": 0.511538461538462
+       },
+       {
+        "day": 38,
+        "survival": 0.5102564102564108
+       },
+       {
+        "day": 39,
+        "survival": 0.5089743589743595
+       },
+       {
+        "day": 40,
+        "survival": 0.5076923076923082
+       },
+       {
+        "day": 41,
+        "survival": 0.5051282051282057
+       },
+       {
+        "day": 42,
+        "survival": 0.5038461538461544
+       },
+       {
+        "day": 44,
+        "survival": 0.5012820512820518
+       },
+       {
+        "day": 46,
+        "survival": 0.4987179487179493
+       },
+       {
+        "day": 48,
+        "survival": 0.497435897435898
+       },
+       {
+        "day": 49,
+        "survival": 0.49487179487179545
+       },
+       {
+        "day": 50,
+        "survival": 0.4923076923076929
+       },
+       {
+        "day": 51,
+        "survival": 0.4897435897435903
+       },
+       {
+        "day": 54,
+        "survival": 0.488461538461539
+       },
+       {
+        "day": 55,
+        "survival": 0.48461538461538517
+       },
+       {
+        "day": 56,
+        "survival": 0.48205128205128256
+       },
+       {
+        "day": 57,
+        "survival": 0.47948717948717995
+       },
+       {
+        "day": 58,
+        "survival": 0.47820512820512867
+       },
+       {
+        "day": 59,
+        "survival": 0.4769230769230774
+       },
+       {
+        "day": 60,
+        "survival": 0.47435897435897484
+       },
+       {
+        "day": 61,
+        "survival": 0.4717948717948723
+       },
+       {
+        "day": 62,
+        "survival": 0.46794871794871845
+       },
+       {
+        "day": 63,
+        "survival": 0.4641025641025646
+       },
+       {
+        "day": 64,
+        "survival": 0.4576923076923082
+       },
+       {
+        "day": 65,
+        "survival": 0.4564102564102569
+       },
+       {
+        "day": 66,
+        "survival": 0.45256410256410307
+       },
+       {
+        "day": 67,
+        "survival": 0.4500000000000005
+       },
+       {
+        "day": 68,
+        "survival": 0.4461538461538467
+       },
+       {
+        "day": 69,
+        "survival": 0.4448717948717954
+       },
+       {
+        "day": 72,
+        "survival": 0.4410256410256415
+       },
+       {
+        "day": 73,
+        "survival": 0.4371794871794877
+       },
+       {
+        "day": 75,
+        "survival": 0.4358974358974364
+       },
+       {
+        "day": 76,
+        "survival": 0.4346153846153851
+       },
+       {
+        "day": 77,
+        "survival": 0.43205128205128257
+       },
+       {
+        "day": 79,
+        "survival": 0.42948717948718
+       },
+       {
+        "day": 83,
+        "survival": 0.42692307692307746
+       },
+       {
+        "day": 84,
+        "survival": 0.4256410256410262
+       },
+       {
+        "day": 85,
+        "survival": 0.4243589743589749
+       },
+       {
+        "day": 86,
+        "survival": 0.42307692307692363
+       },
+       {
+        "day": 87,
+        "survival": 0.42179487179487235
+       },
+       {
+        "day": 88,
+        "survival": 0.4192307692307698
+       },
+       {
+        "day": 90,
+        "survival": 0.4179487179487185
+       },
+       {
+        "day": 92,
+        "survival": 0.4166587527698644
+       },
+       {
+        "day": 98,
+        "survival": 0.4153526124790498
+       },
+       {
+        "day": 99,
+        "survival": 0.4140464721882352
+       },
+       {
+        "day": 100,
+        "survival": 0.4127403318974206
+       },
+       {
+        "day": 103,
+        "survival": 0.41011975836156395
+       },
+       {
+        "day": 104,
+        "survival": 0.4088094715936356
+       },
+       {
+        "day": 105,
+        "survival": 0.40749497168497445
+       },
+       {
+        "day": 110,
+        "survival": 0.4048574637776283
+       },
+       {
+        "day": 111,
+        "survival": 0.4035387098239553
+       },
+       {
+        "day": 113,
+        "survival": 0.40090120191660916
+       },
+       {
+        "day": 114,
+        "survival": 0.3995824479629361
+       },
+       {
+        "day": 115,
+        "survival": 0.39826369400926304
+       },
+       {
+        "day": 118,
+        "survival": 0.396940558813219
+       },
+       {
+        "day": 119,
+        "survival": 0.39561742361717495
+       },
+       {
+        "day": 121,
+        "survival": 0.3903248828329987
+       },
+       {
+        "day": 123,
+        "survival": 0.38899724717710416
+       },
+       {
+        "day": 125,
+        "survival": 0.3876696115212096
+       },
+       {
+        "day": 128,
+        "survival": 0.3850143402094205
+       },
+       {
+        "day": 130,
+        "survival": 0.3836821106585228
+       },
+       {
+        "day": 131,
+        "survival": 0.38234523919281366
+       },
+       {
+        "day": 132,
+        "survival": 0.3810083677271045
+       },
+       {
+        "day": 133,
+        "survival": 0.37967149626139535
+       },
+       {
+        "day": 134,
+        "survival": 0.3783346247956862
+       },
+       {
+        "day": 138,
+        "survival": 0.37699301265102064
+       },
+       {
+        "day": 140,
+        "survival": 0.3756514005063551
+       },
+       {
+        "day": 141,
+        "survival": 0.372968176217024
+       },
+       {
+        "day": 142,
+        "survival": 0.37162656407235845
+       },
+       {
+        "day": 143,
+        "survival": 0.3702849519276929
+       },
+       {
+        "day": 146,
+        "survival": 0.3676017276383618
+       },
+       {
+        "day": 147,
+        "survival": 0.3649185033490307
+       },
+       {
+        "day": 151,
+        "survival": 0.36357689120436515
+       },
+       {
+        "day": 152,
+        "survival": 0.3622352790596996
+       },
+       {
+        "day": 154,
+        "survival": 0.36089366691503405
+       },
+       {
+        "day": 155,
+        "survival": 0.3595520547703685
+       },
+       {
+        "day": 157,
+        "survival": 0.35821044262570295
+       },
+       {
+        "day": 163,
+        "survival": 0.3568637868263582
+       },
+       {
+        "day": 165,
+        "survival": 0.35282381942832397
+       },
+       {
+        "day": 167,
+        "survival": 0.35147716362897924
+       },
+       {
+        "day": 172,
+        "survival": 0.35013050782963445
+       },
+       {
+        "day": 173,
+        "survival": 0.347437196230945
+       },
+       {
+        "day": 175,
+        "survival": 0.34609054043160026
+       },
+       {
+        "day": 179,
+        "survival": 0.3447386242580393
+       },
+       {
+        "day": 184,
+        "survival": 0.34338670808447835
+       },
+       {
+        "day": 185,
+        "survival": 0.3420347919109174
+       },
+       {
+        "day": 186,
+        "survival": 0.34068287573735645
+       },
+       {
+        "day": 187,
+        "survival": 0.3393309595637955
+       },
+       {
+        "day": 188,
+        "survival": 0.33797904339023455
+       },
+       {
+        "day": 189,
+        "survival": 0.3366271272166736
+       },
+       {
+        "day": 191,
+        "survival": 0.33527521104311264
+       },
+       {
+        "day": 192,
+        "survival": 0.3339232948695517
+       },
+       {
+        "day": 194,
+        "survival": 0.33257137869599074
+       },
+       {
+        "day": 199,
+        "survival": 0.3312194625224298
+       },
+       {
+        "day": 203,
+        "survival": 0.32986754634886883
+       },
+       {
+        "day": 205,
+        "survival": 0.32851563017530794
+       },
+       {
+        "day": 206,
+        "survival": 0.327163714001747
+       },
+       {
+        "day": 209,
+        "survival": 0.32581179782818603
+       },
+       {
+        "day": 214,
+        "survival": 0.32309669951295117
+       },
+       {
+        "day": 216,
+        "survival": 0.32173915035533374
+       },
+       {
+        "day": 219,
+        "survival": 0.3203816011977163
+       },
+       {
+        "day": 223,
+        "survival": 0.31766650288248144
+       },
+       {
+        "day": 225,
+        "survival": 0.3149514045672466
+       },
+       {
+        "day": 229,
+        "survival": 0.31359385540962914
+       },
+       {
+        "day": 232,
+        "survival": 0.3122363062520117
+       },
+       {
+        "day": 236,
+        "survival": 0.3108787570943943
+       },
+       {
+        "day": 240,
+        "survival": 0.30952120793677684
+       },
+       {
+        "day": 241,
+        "survival": 0.3081636587791594
+       },
+       {
+        "day": 242,
+        "survival": 0.306806109621542
+       },
+       {
+        "day": 243,
+        "survival": 0.30544856046392455
+       },
+       {
+        "day": 244,
+        "survival": 0.3040910113063071
+       },
+       {
+        "day": 245,
+        "survival": 0.3027334621486897
+       },
+       {
+        "day": 246,
+        "survival": 0.30137591299107225
+       },
+       {
+        "day": 251,
+        "survival": 0.3000183638334548
+       },
+       {
+        "day": 252,
+        "survival": 0.29730326551821995
+       },
+       {
+        "day": 254,
+        "survival": 0.2959457163606025
+       },
+       {
+        "day": 255,
+        "survival": 0.29321810607156473
+       },
+       {
+        "day": 257,
+        "survival": 0.29185430092704584
+       },
+       {
+        "day": 259,
+        "survival": 0.29049049578252695
+       },
+       {
+        "day": 260,
+        "survival": 0.28912669063800805
+       },
+       {
+        "day": 261,
+        "survival": 0.28639908034897027
+       },
+       {
+        "day": 262,
+        "survival": 0.2850352752044514
+       },
+       {
+        "day": 263,
+        "survival": 0.2836714700599325
+       },
+       {
+        "day": 264,
+        "survival": 0.2823076649154136
+       },
+       {
+        "day": 266,
+        "survival": 0.2809438597708947
+       },
+       {
+        "day": 268,
+        "survival": 0.2795800546263758
+       },
+       {
+        "day": 272,
+        "survival": 0.2782162494818569
+       },
+       {
+        "day": 273,
+        "survival": 0.276852444337338
+       },
+       {
+        "day": 275,
+        "survival": 0.27548863919281913
+       },
+       {
+        "day": 277,
+        "survival": 0.27411804894807873
+       },
+       {
+        "day": 278,
+        "survival": 0.27274745870333833
+       },
+       {
+        "day": 279,
+        "survival": 0.27137686845859793
+       },
+       {
+        "day": 280,
+        "survival": 0.27000627821385753
+       },
+       {
+        "day": 282,
+        "survival": 0.26863568796911713
+       },
+       {
+        "day": 283,
+        "survival": 0.26726509772437673
+       },
+       {
+        "day": 284,
+        "survival": 0.26589450747963633
+       },
+       {
+        "day": 285,
+        "survival": 0.26452391723489593
+       },
+       {
+        "day": 287,
+        "survival": 0.26315332699015553
+       },
+       {
+        "day": 290,
+        "survival": 0.2563003757664536
+       },
+       {
+        "day": 291,
+        "survival": 0.25492241675695654
+       },
+       {
+        "day": 293,
+        "survival": 0.25216649873796243
+       },
+       {
+        "day": 294,
+        "survival": 0.2507885397284654
+       },
+       {
+        "day": 297,
+        "survival": 0.24941058071896832
+       },
+       {
+        "day": 299,
+        "survival": 0.24665466269997421
+       },
+       {
+        "day": 300,
+        "survival": 0.24389874468098008
+       },
+       {
+        "day": 301,
+        "survival": 0.2397648676524889
+       },
+       {
+        "day": 302,
+        "survival": 0.2383869086429918
+       },
+       {
+        "day": 304,
+        "survival": 0.23563099062399767
+       },
+       {
+        "day": 305,
+        "survival": 0.23425303161450062
+       },
+       {
+        "day": 306,
+        "survival": 0.23286691900139705
+       },
+       {
+        "day": 307,
+        "survival": 0.2314808063882935
+       },
+       {
+        "day": 310,
+        "survival": 0.23009469377518993
+       },
+       {
+        "day": 317,
+        "survival": 0.2287001804795827
+       },
+       {
+        "day": 319,
+        "survival": 0.2273056671839755
+       },
+       {
+        "day": 320,
+        "survival": 0.2259111538883683
+       },
+       {
+        "day": 321,
+        "survival": 0.22451664059276108
+       },
+       {
+        "day": 323,
+        "survival": 0.22312212729715386
+       },
+       {
+        "day": 325,
+        "survival": 0.22172761400154664
+       },
+       {
+        "day": 326,
+        "survival": 0.22033310070593942
+       },
+       {
+        "day": 328,
+        "survival": 0.217544074114725
+       },
+       {
+        "day": 329,
+        "survival": 0.2161495608191178
+       },
+       {
+        "day": 331,
+        "survival": 0.21475504752351057
+       },
+       {
+        "day": 332,
+        "survival": 0.21336053422790338
+       },
+       {
+        "day": 333,
+        "survival": 0.21057150763668897
+       },
+       {
+        "day": 334,
+        "survival": 0.20776388753486646
+       },
+       {
+        "day": 336,
+        "survival": 0.20636007748395518
+       },
+       {
+        "day": 337,
+        "survival": 0.20355245738213265
+       },
+       {
+        "day": 339,
+        "survival": 0.2021486473312214
+       },
+       {
+        "day": 341,
+        "survival": 0.19653340712757636
+       },
+       {
+        "day": 343,
+        "survival": 0.1951295970766651
+       },
+       {
+        "day": 344,
+        "survival": 0.19232197697484257
+       },
+       {
+        "day": 346,
+        "survival": 0.19091816692393132
+       },
+       {
+        "day": 347,
+        "survival": 0.18811054682210882
+       },
+       {
+        "day": 349,
+        "survival": 0.18670673677119756
+       },
+       {
+        "day": 350,
+        "survival": 0.18529229179565818
+       },
+       {
+        "day": 351,
+        "survival": 0.1838778468201188
+       },
+       {
+        "day": 352,
+        "survival": 0.17963451189350066
+       },
+       {
+        "day": 353,
+        "survival": 0.17680562194242191
+       },
+       {
+        "day": 354,
+        "survival": 0.1711478420402644
+       },
+       {
+        "day": 356,
+        "survival": 0.16973339706472504
+       },
+       {
+        "day": 357,
+        "survival": 0.16831895208918568
+       },
+       {
+        "day": 360,
+        "survival": 0.1654900621381069
+       },
+       {
+        "day": 362,
+        "survival": 0.16266117218702814
+       },
+       {
+        "day": 363,
+        "survival": 0.16124672721148878
+       }
+      ]
+     },
+     {
+      "name": "بطاقة الدفع",
+      "n": 498,
+      "median_days": 13.0,
+      "return_rate_pct": {
+       "30": 54.81927710843373,
+       "60": 58.63453815261042,
+       "90": 60.84337349397588
+      },
+      "curve": [
+       {
+        "day": 0,
+        "survival": 0.6365461847389557
+       },
+       {
+        "day": 1,
+        "survival": 0.5823293172690762
+       },
+       {
+        "day": 2,
+        "survival": 0.5642570281124497
+       },
+       {
+        "day": 3,
+        "survival": 0.5562248995983935
+       },
+       {
+        "day": 4,
+        "survival": 0.5502008032128513
+       },
+       {
+        "day": 5,
+        "survival": 0.540160642570281
+       },
+       {
+        "day": 6,
+        "survival": 0.5301204819277107
+       },
+       {
+        "day": 7,
+        "survival": 0.5220883534136544
+       },
+       {
+        "day": 8,
+        "survival": 0.5180722891566264
+       },
+       {
+        "day": 9,
+        "survival": 0.5120481927710843
+       },
+       {
+        "day": 10,
+        "survival": 0.504016064257028
+       },
+       {
+        "day": 12,
+        "survival": 0.502008032128514
+       },
+       {
+        "day": 13,
+        "survival": 0.49397590361445776
+       },
+       {
+        "day": 14,
+        "survival": 0.48995983935742965
+       },
+       {
+        "day": 15,
+        "survival": 0.4879518072289156
+       },
+       {
+        "day": 16,
+        "survival": 0.4859437751004016
+       },
+       {
+        "day": 17,
+        "survival": 0.47991967871485947
+       },
+       {
+        "day": 18,
+        "survival": 0.47590361445783136
+       },
+       {
+        "day": 19,
+        "survival": 0.47389558232931733
+       },
+       {
+        "day": 20,
+        "survival": 0.4698795180722892
+       },
+       {
+        "day": 22,
+        "survival": 0.4678714859437752
+       },
+       {
+        "day": 23,
+        "survival": 0.461847389558233
+       },
+       {
+        "day": 26,
+        "survival": 0.4578313253012049
+       },
+       {
+        "day": 30,
+        "survival": 0.4518072289156627
+       },
+       {
+        "day": 31,
+        "survival": 0.4457831325301206
+       },
+       {
+        "day": 34,
+        "survival": 0.44377510040160656
+       },
+       {
+        "day": 36,
+        "survival": 0.44176706827309253
+       },
+       {
+        "day": 37,
+        "survival": 0.4397590361445785
+       },
+       {
+        "day": 38,
+        "survival": 0.4357429718875504
+       },
+       {
+        "day": 39,
+        "survival": 0.4297188755020082
+       },
+       {
+        "day": 41,
+        "survival": 0.4277108433734942
+       },
+       {
+        "day": 43,
+        "survival": 0.42570281124498016
+       },
+       {
+        "day": 44,
+        "survival": 0.4236947791164661
+       },
+       {
+        "day": 45,
+        "survival": 0.421686746987952
+       },
+       {
+        "day": 48,
+        "survival": 0.419678714859438
+       },
+       {
+        "day": 49,
+        "survival": 0.4176706827309239
+       },
+       {
+        "day": 50,
+        "survival": 0.41566265060240987
+       },
+       {
+        "day": 55,
+        "survival": 0.4136546184738958
+       },
+       {
+        "day": 62,
+        "survival": 0.4116465863453817
+       },
+       {
+        "day": 66,
+        "survival": 0.4096385542168676
+       },
+       {
+        "day": 67,
+        "survival": 0.4076305220883536
+       },
+       {
+        "day": 70,
+        "survival": 0.4056224899598395
+       },
+       {
+        "day": 71,
+        "survival": 0.40361445783132543
+       },
+       {
+        "day": 73,
+        "survival": 0.4016064257028114
+       },
+       {
+        "day": 79,
+        "survival": 0.3975903614457833
+       },
+       {
+        "day": 80,
+        "survival": 0.3955823293172692
+       },
+       {
+        "day": 83,
+        "survival": 0.39357429718875514
+       },
+       {
+        "day": 89,
+        "survival": 0.3915662650602411
+       },
+       {
+        "day": 91,
+        "survival": 0.3895582329317271
+       },
+       {
+        "day": 93,
+        "survival": 0.3875397964916663
+       },
+       {
+        "day": 98,
+        "survival": 0.38552136005160553
+       },
+       {
+        "day": 99,
+        "survival": 0.3834923002618602
+       },
+       {
+        "day": 102,
+        "survival": 0.3814632404721149
+       },
+       {
+        "day": 103,
+        "survival": 0.37943418068236956
+       },
+       {
+        "day": 106,
+        "survival": 0.3773942119690235
+       },
+       {
+        "day": 108,
+        "survival": 0.37535424325567746
+       },
+       {
+        "day": 114,
+        "survival": 0.3712743058289853
+       },
+       {
+        "day": 117,
+        "survival": 0.36923433711563924
+       },
+       {
+        "day": 120,
+        "survival": 0.3651543996889471
+       },
+       {
+        "day": 121,
+        "survival": 0.363114430975601
+       },
+       {
+        "day": 124,
+        "survival": 0.3590344935489088
+       },
+       {
+        "day": 126,
+        "survival": 0.3569945248355627
+       },
+       {
+        "day": 129,
+        "survival": 0.35495455612221666
+       },
+       {
+        "day": 154,
+        "survival": 0.35291458740887055
+       },
+       {
+        "day": 156,
+        "survival": 0.35087461869552444
+       },
+       {
+        "day": 158,
+        "survival": 0.3488346499821784
+       },
+       {
+        "day": 161,
+        "survival": 0.34679468126883234
+       },
+       {
+        "day": 163,
+        "survival": 0.3447547125554863
+       },
+       {
+        "day": 164,
+        "survival": 0.3427147438421402
+       },
+       {
+        "day": 175,
+        "survival": 0.34066255974727705
+       },
+       {
+        "day": 176,
+        "survival": 0.3386103756524139
+       },
+       {
+        "day": 184,
+        "survival": 0.3365581915575508
+       },
+       {
+        "day": 185,
+        "survival": 0.33450600746268766
+       },
+       {
+        "day": 192,
+        "survival": 0.3304016392729614
+       },
+       {
+        "day": 200,
+        "survival": 0.3283366290275054
+       },
+       {
+        "day": 205,
+        "survival": 0.3262585490969515
+       },
+       {
+        "day": 213,
+        "survival": 0.3241804691663977
+       },
+       {
+        "day": 216,
+        "survival": 0.3221023892358439
+       },
+       {
+        "day": 218,
+        "survival": 0.3200243093052901
+       },
+       {
+        "day": 224,
+        "survival": 0.31794622937473627
+       },
+       {
+        "day": 225,
+        "survival": 0.31586814944418246
+       },
+       {
+        "day": 227,
+        "survival": 0.31379006951362864
+       },
+       {
+        "day": 228,
+        "survival": 0.3117119895830748
+       },
+       {
+        "day": 234,
+        "survival": 0.30961996280734944
+       },
+       {
+        "day": 247,
+        "survival": 0.3075279360316241
+       },
+       {
+        "day": 248,
+        "survival": 0.3033438824801734
+       },
+       {
+        "day": 256,
+        "survival": 0.30123732774072776
+       },
+       {
+        "day": 261,
+        "survival": 0.2991159381087508
+       },
+       {
+        "day": 264,
+        "survival": 0.29699454847677387
+       },
+       {
+        "day": 266,
+        "survival": 0.2948731588447969
+       },
+       {
+        "day": 267,
+        "survival": 0.29275176921282
+       },
+       {
+        "day": 270,
+        "survival": 0.29063037958084303
+       },
+       {
+        "day": 272,
+        "survival": 0.2885089899488661
+       },
+       {
+        "day": 273,
+        "survival": 0.28638760031688915
+       },
+       {
+        "day": 277,
+        "survival": 0.2842662106849122
+       },
+       {
+        "day": 280,
+        "survival": 0.28002343142095826
+       },
+       {
+        "day": 284,
+        "survival": 0.2779020417889813
+       },
+       {
+        "day": 290,
+        "survival": 0.2736266257614585
+       },
+       {
+        "day": 292,
+        "survival": 0.2714889177476971
+       },
+       {
+        "day": 299,
+        "survival": 0.2693342437973186
+       },
+       {
+        "day": 301,
+        "survival": 0.26717956984694
+       },
+       {
+        "day": 303,
+        "survival": 0.2650248958965615
+       },
+       {
+        "day": 305,
+        "survival": 0.2628702219461829
+       },
+       {
+        "day": 306,
+        "survival": 0.2607155479958044
+       },
+       {
+        "day": 307,
+        "survival": 0.2585608740454258
+       },
+       {
+        "day": 315,
+        "survival": 0.2564062000950473
+       },
+       {
+        "day": 316,
+        "survival": 0.2542515261446687
+       },
+       {
+        "day": 317,
+        "survival": 0.2520968521942902
+       },
+       {
+        "day": 318,
+        "survival": 0.24994217824391163
+       },
+       {
+        "day": 320,
+        "survival": 0.24778750429353308
+       },
+       {
+        "day": 324,
+        "survival": 0.24563283034315453
+       },
+       {
+        "day": 325,
+        "survival": 0.24347815639277598
+       },
+       {
+        "day": 327,
+        "survival": 0.23916880849201888
+       },
+       {
+        "day": 328,
+        "survival": 0.23701413454164033
+       },
+       {
+        "day": 329,
+        "survival": 0.23270478664088323
+       },
+       {
+        "day": 331,
+        "survival": 0.22839543874012613
+       },
+       {
+        "day": 335,
+        "survival": 0.22624076478974758
+       },
+       {
+        "day": 336,
+        "survival": 0.22408609083936903
+       },
+       {
+        "day": 337,
+        "survival": 0.22193141688899048
+       },
+       {
+        "day": 338,
+        "survival": 0.21977674293861194
+       },
+       {
+        "day": 340,
+        "survival": 0.21546739503785484
+       },
+       {
+        "day": 344,
+        "survival": 0.2133127210874763
+       },
+       {
+        "day": 347,
+        "survival": 0.21115804713709774
+       },
+       {
+        "day": 348,
+        "survival": 0.20684869923634064
+       },
+       {
+        "day": 349,
+        "survival": 0.200384677385205
+       },
+       {
+        "day": 350,
+        "survival": 0.19823000343482644
+       },
+       {
+        "day": 351,
+        "survival": 0.1960753294844479
+       },
+       {
+        "day": 352,
+        "survival": 0.1917659815836908
+       },
+       {
+        "day": 353,
+        "survival": 0.1874566336829337
+       },
+       {
+        "day": 354,
+        "survival": 0.17883793788141952
+       },
+       {
+        "day": 355,
+        "survival": 0.17447603695748246
+       },
+       {
+        "day": 356,
+        "survival": 0.17229508649551392
+       },
+       {
+        "day": 357,
+        "survival": 0.16793318557157685
+       },
+       {
+        "day": 358,
+        "survival": 0.16139033418567125
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "مبلغ أول تبرع مقارنةً بالوسيط (10 ر.س)",
+    "levels": [
+     {
+      "name": "الوسيط فأقل",
+      "n": 773,
+      "median_days": 19.0,
+      "return_rate_pct": {
+       "30": 53.16946959896506,
+       "60": 58.47347994825355,
+       "90": 62.35446313065975
+      },
+      "curve": [
+       {
+        "day": 0,
+        "survival": 0.6817593790426908
+       },
+       {
+        "day": 1,
+        "survival": 0.6416558861578266
+       },
+       {
+        "day": 2,
+        "survival": 0.6131953428201812
+       },
+       {
+        "day": 3,
+        "survival": 0.5937904269081502
+       },
+       {
+        "day": 4,
+        "survival": 0.5795601552393275
+       },
+       {
+        "day": 5,
+        "survival": 0.5717981888745151
+       },
+       {
+        "day": 6,
+        "survival": 0.5640362225097026
+       },
+       {
+        "day": 7,
+        "survival": 0.5562742561448902
+       },
+       {
+        "day": 8,
+        "survival": 0.5498059508408799
+       },
+       {
+        "day": 9,
+        "survival": 0.5381630012936613
+       },
+       {
+        "day": 10,
+        "survival": 0.5342820181112552
+       },
+       {
+        "day": 11,
+        "survival": 0.531694695989651
+       },
+       {
+        "day": 12,
+        "survival": 0.5291073738680468
+       },
+       {
+        "day": 13,
+        "survival": 0.5239327296248385
+       },
+       {
+        "day": 14,
+        "survival": 0.5200517464424322
+       },
+       {
+        "day": 15,
+        "survival": 0.5174644243208281
+       },
+       {
+        "day": 16,
+        "survival": 0.5148771021992239
+       },
+       {
+        "day": 17,
+        "survival": 0.5084087968952136
+       },
+       {
+        "day": 18,
+        "survival": 0.5032341526520053
+       },
+       {
+        "day": 19,
+        "survival": 0.49805950840879704
+       },
+       {
+        "day": 20,
+        "survival": 0.49288486416558874
+       },
+       {
+        "day": 22,
+        "survival": 0.4915912031047867
+       },
+       {
+        "day": 23,
+        "survival": 0.48512289780077633
+       },
+       {
+        "day": 24,
+        "survival": 0.47994825355756804
+       },
+       {
+        "day": 25,
+        "survival": 0.47865459249676595
+       },
+       {
+        "day": 26,
+        "survival": 0.4773609314359639
+       },
+       {
+        "day": 27,
+        "survival": 0.47477360931435975
+       },
+       {
+        "day": 29,
+        "survival": 0.4721862871927556
+       },
+       {
+        "day": 30,
+        "survival": 0.4683053040103494
+       },
+       {
+        "day": 31,
+        "survival": 0.46701164294954733
+       },
+       {
+        "day": 32,
+        "survival": 0.4644243208279432
+       },
+       {
+        "day": 34,
+        "survival": 0.45795601552393284
+       },
+       {
+        "day": 35,
+        "survival": 0.45666235446313075
+       },
+       {
+        "day": 36,
+        "survival": 0.45536869340232866
+       },
+       {
+        "day": 37,
+        "survival": 0.45148771021992246
+       },
+       {
+        "day": 38,
+        "survival": 0.45019404915912037
+       },
+       {
+        "day": 39,
+        "survival": 0.4476067270375162
+       },
+       {
+        "day": 40,
+        "survival": 0.4463130659767141
+       },
+       {
+        "day": 41,
+        "survival": 0.44372574385511
+       },
+       {
+        "day": 42,
+        "survival": 0.4424320827943079
+       },
+       {
+        "day": 43,
+        "survival": 0.44113842173350587
+       },
+       {
+        "day": 44,
+        "survival": 0.43725743855109966
+       },
+       {
+        "day": 46,
+        "survival": 0.4359637774902976
+       },
+       {
+        "day": 48,
+        "survival": 0.4346701164294955
+       },
+       {
+        "day": 49,
+        "survival": 0.4307891332470893
+       },
+       {
+        "day": 50,
+        "survival": 0.42820181112548517
+       },
+       {
+        "day": 51,
+        "survival": 0.42561448900388105
+       },
+       {
+        "day": 55,
+        "survival": 0.42173350582147484
+       },
+       {
+        "day": 56,
+        "survival": 0.4191461836998707
+       },
+       {
+        "day": 57,
+        "survival": 0.41785252263906864
+       },
+       {
+        "day": 58,
+        "survival": 0.41655886157826655
+       },
+       {
+        "day": 60,
+        "survival": 0.4152652005174645
+       },
+       {
+        "day": 61,
+        "survival": 0.4126778783958604
+       },
+       {
+        "day": 62,
+        "survival": 0.4113842173350583
+       },
+       {
+        "day": 63,
+        "survival": 0.4087968952134542
+       },
+       {
+        "day": 64,
+        "survival": 0.40362225097024595
+       },
+       {
+        "day": 65,
+        "survival": 0.40232858990944387
+       },
+       {
+        "day": 66,
+        "survival": 0.39844760672703766
+       },
+       {
+        "day": 68,
+        "survival": 0.39586028460543354
+       },
+       {
+        "day": 69,
+        "survival": 0.39456662354463146
+       },
+       {
+        "day": 71,
+        "survival": 0.3932729624838294
+       },
+       {
+        "day": 72,
+        "survival": 0.3906856403622253
+       },
+       {
+        "day": 73,
+        "survival": 0.38809831824062113
+       },
+       {
+        "day": 77,
+        "survival": 0.3868046571798191
+       },
+       {
+        "day": 79,
+        "survival": 0.385510996119017
+       },
+       {
+        "day": 80,
+        "survival": 0.3842173350582149
+       },
+       {
+        "day": 83,
+        "survival": 0.38292367399741284
+       },
+       {
+        "day": 84,
+        "survival": 0.38163001293661075
+       },
+       {
+        "day": 85,
+        "survival": 0.3803363518758087
+       },
+       {
+        "day": 88,
+        "survival": 0.3777490297542046
+       },
+       {
+        "day": 90,
+        "survival": 0.3764553686934025
+       },
+       {
+        "day": 92,
+        "survival": 0.37515724673239076
+       },
+       {
+        "day": 103,
+        "survival": 0.37251529429061336
+       },
+       {
+        "day": 104,
+        "survival": 0.3711943180697247
+       },
+       {
+        "day": 105,
+        "survival": 0.369873341848836
+       },
+       {
+        "day": 106,
+        "survival": 0.368547630946152
+       },
+       {
+        "day": 108,
+        "survival": 0.3672171340835305
+       },
+       {
+        "day": 110,
+        "survival": 0.36588663722090903
+       },
+       {
+        "day": 111,
+        "survival": 0.36455614035828754
+       },
+       {
+        "day": 113,
+        "survival": 0.36189514663304456
+       },
+       {
+        "day": 114,
+        "survival": 0.3605646497704231
+       },
+       {
+        "day": 115,
+        "survival": 0.3592341529078016
+       },
+       {
+        "day": 117,
+        "survival": 0.3579036560451801
+       },
+       {
+        "day": 119,
+        "survival": 0.3565731591825586
+       },
+       {
+        "day": 120,
+        "survival": 0.3552426623199371
+       },
+       {
+        "day": 121,
+        "survival": 0.34992067486945116
+       },
+       {
+        "day": 125,
+        "survival": 0.3485901780068297
+       },
+       {
+        "day": 129,
+        "survival": 0.3472596811442082
+       },
+       {
+        "day": 132,
+        "survival": 0.3459189101745394
+       },
+       {
+        "day": 133,
+        "survival": 0.3445781392048706
+       },
+       {
+        "day": 134,
+        "survival": 0.3432373682352019
+       },
+       {
+        "day": 138,
+        "survival": 0.3418913393401619
+       },
+       {
+        "day": 141,
+        "survival": 0.3391992815500819
+       },
+       {
+        "day": 142,
+        "survival": 0.3378532526550419
+       },
+       {
+        "day": 143,
+        "survival": 0.3365072237600019
+       },
+       {
+        "day": 146,
+        "survival": 0.33516119486496193
+       },
+       {
+        "day": 147,
+        "survival": 0.3338151659699219
+       },
+       {
+        "day": 152,
+        "survival": 0.3324691370748819
+       },
+       {
+        "day": 158,
+        "survival": 0.33112310817984186
+       },
+       {
+        "day": 161,
+        "survival": 0.3297715852893119
+       },
+       {
+        "day": 163,
+        "survival": 0.3284200623987819
+       },
+       {
+        "day": 164,
+        "survival": 0.32706853950825193
+       },
+       {
+        "day": 165,
+        "survival": 0.32301397083666206
+       },
+       {
+        "day": 167,
+        "survival": 0.3216624479461321
+       },
+       {
+        "day": 172,
+        "survival": 0.320305222427372
+       },
+       {
+        "day": 173,
+        "survival": 0.3175907713898519
+       },
+       {
+        "day": 185,
+        "survival": 0.3148763203523318
+       },
+       {
+        "day": 186,
+        "survival": 0.31351909483357177
+       },
+       {
+        "day": 187,
+        "survival": 0.3121618693148117
+       },
+       {
+        "day": 189,
+        "survival": 0.31080464379605166
+       },
+       {
+        "day": 192,
+        "survival": 0.30809019275853156
+       },
+       {
+        "day": 194,
+        "survival": 0.3067329672397715
+       },
+       {
+        "day": 199,
+        "survival": 0.30536970960759474
+       },
+       {
+        "day": 200,
+        "survival": 0.304006451975418
+       },
+       {
+        "day": 205,
+        "survival": 0.3012676551107746
+       },
+       {
+        "day": 209,
+        "survival": 0.2998982566784529
+       },
+       {
+        "day": 214,
+        "survival": 0.2985225766019462
+       },
+       {
+        "day": 216,
+        "survival": 0.2971468965254395
+       },
+       {
+        "day": 219,
+        "survival": 0.29577121644893284
+       },
+       {
+        "day": 223,
+        "survival": 0.29439553637242616
+       },
+       {
+        "day": 224,
+        "survival": 0.29301985629591953
+       },
+       {
+        "day": 225,
+        "survival": 0.28889281606639955
+       },
+       {
+        "day": 228,
+        "survival": 0.28751713598989287
+       },
+       {
+        "day": 232,
+        "survival": 0.2861414559133862
+       },
+       {
+        "day": 234,
+        "survival": 0.2847657758368795
+       },
+       {
+        "day": 236,
+        "survival": 0.28339009576037283
+       },
+       {
+        "day": 242,
+        "survival": 0.28201441568386615
+       },
+       {
+        "day": 243,
+        "survival": 0.28063873560735947
+       },
+       {
+        "day": 244,
+        "survival": 0.2792630555308528
+       },
+       {
+        "day": 245,
+        "survival": 0.2778873754543461
+       },
+       {
+        "day": 246,
+        "survival": 0.27651169537783943
+       },
+       {
+        "day": 247,
+        "survival": 0.27513601530133275
+       },
+       {
+        "day": 251,
+        "survival": 0.27376033522482607
+       },
+       {
+        "day": 254,
+        "survival": 0.2723777072691451
+       },
+       {
+        "day": 255,
+        "survival": 0.2695983429092559
+       },
+       {
+        "day": 256,
+        "survival": 0.26820866072931127
+       },
+       {
+        "day": 257,
+        "survival": 0.26681897854936665
+       },
+       {
+        "day": 259,
+        "survival": 0.26542929636942203
+       },
+       {
+        "day": 260,
+        "survival": 0.26403230007274087
+       },
+       {
+        "day": 261,
+        "survival": 0.2598413111826974
+       },
+       {
+        "day": 263,
+        "survival": 0.2584443148860162
+       },
+       {
+        "day": 266,
+        "survival": 0.2556503222926539
+       },
+       {
+        "day": 267,
+        "survival": 0.2542533259959727
+       },
+       {
+        "day": 268,
+        "survival": 0.25285632969929156
+       },
+       {
+        "day": 270,
+        "survival": 0.2514593334026104
+       },
+       {
+        "day": 272,
+        "survival": 0.25006233710592923
+       },
+       {
+        "day": 275,
+        "survival": 0.24866534080924804
+       },
+       {
+        "day": 277,
+        "survival": 0.24726045187812237
+       },
+       {
+        "day": 278,
+        "survival": 0.24585556294699668
+       },
+       {
+        "day": 279,
+        "survival": 0.24445067401587098
+       },
+       {
+        "day": 280,
+        "survival": 0.24304578508474528
+       },
+       {
+        "day": 282,
+        "survival": 0.24164089615361958
+       },
+       {
+        "day": 283,
+        "survival": 0.24023600722249389
+       },
+       {
+        "day": 284,
+        "survival": 0.23883111829136822
+       },
+       {
+        "day": 285,
+        "survival": 0.23742622936024252
+       },
+       {
+        "day": 290,
+        "survival": 0.23177322389928437
+       },
+       {
+        "day": 291,
+        "survival": 0.23035997253404483
+       },
+       {
+        "day": 292,
+        "survival": 0.2289467211688053
+       },
+       {
+        "day": 293,
+        "survival": 0.2261202184383262
+       },
+       {
+        "day": 299,
+        "survival": 0.22327593896111456
+       },
+       {
+        "day": 300,
+        "survival": 0.22185379922250872
+       },
+       {
+        "day": 301,
+        "survival": 0.21758738000669123
+       },
+       {
+        "day": 303,
+        "survival": 0.2161652402680854
+       },
+       {
+        "day": 304,
+        "survival": 0.21332096079087373
+       },
+       {
+        "day": 305,
+        "survival": 0.2118988210522679
+       },
+       {
+        "day": 306,
+        "survival": 0.20905454157505626
+       },
+       {
+        "day": 307,
+        "survival": 0.20763240183645043
+       },
+       {
+        "day": 310,
+        "survival": 0.2062102620978446
+       },
+       {
+        "day": 316,
+        "survival": 0.2047782463888318
+       },
+       {
+        "day": 317,
+        "survival": 0.203346230679819
+       },
+       {
+        "day": 319,
+        "survival": 0.2019142149708062
+       },
+       {
+        "day": 320,
+        "survival": 0.19905018355278056
+       },
+       {
+        "day": 321,
+        "survival": 0.19761816784376776
+       },
+       {
+        "day": 323,
+        "survival": 0.19618615213475493
+       },
+       {
+        "day": 325,
+        "survival": 0.19475413642574213
+       },
+       {
+        "day": 326,
+        "survival": 0.19332212071672933
+       },
+       {
+        "day": 327,
+        "survival": 0.19189010500771653
+       },
+       {
+        "day": 328,
+        "survival": 0.19045808929870373
+       },
+       {
+        "day": 331,
+        "survival": 0.1890260735896909
+       },
+       {
+        "day": 332,
+        "survival": 0.1875940578806781
+       },
+       {
+        "day": 333,
+        "survival": 0.1861620421716653
+       },
+       {
+        "day": 334,
+        "survival": 0.1847300264626525
+       },
+       {
+        "day": 337,
+        "survival": 0.18186599504462686
+       },
+       {
+        "day": 338,
+        "survival": 0.18043397933561406
+       },
+       {
+        "day": 340,
+        "survival": 0.17900196362660126
+       },
+       {
+        "day": 341,
+        "survival": 0.17470591649956282
+       },
+       {
+        "day": 343,
+        "survival": 0.17327390079055002
+       },
+       {
+        "day": 344,
+        "survival": 0.17184188508153722
+       },
+       {
+        "day": 346,
+        "survival": 0.17040986937252442
+       },
+       {
+        "day": 347,
+        "survival": 0.16897785366351162
+       },
+       {
+        "day": 348,
+        "survival": 0.16754583795449882
+       },
+       {
+        "day": 351,
+        "survival": 0.16611382224548601
+       },
+       {
+        "day": 352,
+        "survival": 0.16324979082746038
+       },
+       {
+        "day": 353,
+        "survival": 0.16181777511844758
+       },
+       {
+        "day": 356,
+        "survival": 0.16038575940943478
+       },
+       {
+        "day": 357,
+        "survival": 0.15608971228239635
+       },
+       {
+        "day": 358,
+        "survival": 0.15465769657338355
+       },
+       {
+        "day": 360,
+        "survival": 0.15179366515535794
+       },
+       {
+        "day": 362,
+        "survival": 0.15036164944634514
+       }
+      ]
+     },
+     {
+      "name": "أعلى من الوسيط",
+      "n": 517,
+      "median_days": 59.0,
+      "return_rate_pct": {
+       "30": 45.45454545454546,
+       "60": 50.2901353965184,
+       "90": 55.12572533849129
+      },
+      "curve": [
+       {
+        "day": 0,
+        "survival": 0.7176015473887815
+       },
+       {
+        "day": 1,
+        "survival": 0.6866537717601547
+       },
+       {
+        "day": 2,
+        "survival": 0.665377176015474
+       },
+       {
+        "day": 3,
+        "survival": 0.6499032882011606
+       },
+       {
+        "day": 4,
+        "survival": 0.6441005802707931
+       },
+       {
+        "day": 5,
+        "survival": 0.6363636363636365
+       },
+       {
+        "day": 6,
+        "survival": 0.6344294003868474
+       },
+       {
+        "day": 7,
+        "survival": 0.6266924564796906
+       },
+       {
+        "day": 8,
+        "survival": 0.6247582205029014
+       },
+       {
+        "day": 9,
+        "survival": 0.6189555125725339
+       },
+       {
+        "day": 10,
+        "survival": 0.6131528046421664
+       },
+       {
+        "day": 13,
+        "survival": 0.6054158607350096
+       },
+       {
+        "day": 14,
+        "survival": 0.6034816247582204
+       },
+       {
+        "day": 15,
+        "survival": 0.5957446808510638
+       },
+       {
+        "day": 17,
+        "survival": 0.5918762088974855
+       },
+       {
+        "day": 18,
+        "survival": 0.5880077369439072
+       },
+       {
+        "day": 19,
+        "survival": 0.5822050290135397
+       },
+       {
+        "day": 20,
+        "survival": 0.5764023210831721
+       },
+       {
+        "day": 22,
+        "survival": 0.5744680851063829
+       },
+       {
+        "day": 23,
+        "survival": 0.5705996131528046
+       },
+       {
+        "day": 24,
+        "survival": 0.5667311411992263
+       },
+       {
+        "day": 26,
+        "survival": 0.562862669245648
+       },
+       {
+        "day": 27,
+        "survival": 0.5570599613152805
+       },
+       {
+        "day": 28,
+        "survival": 0.5531914893617021
+       },
+       {
+        "day": 29,
+        "survival": 0.5512572533849129
+       },
+       {
+        "day": 30,
+        "survival": 0.5454545454545454
+       },
+       {
+        "day": 31,
+        "survival": 0.5357833655705996
+       },
+       {
+        "day": 34,
+        "survival": 0.5319148936170213
+       },
+       {
+        "day": 35,
+        "survival": 0.5299806576402321
+       },
+       {
+        "day": 36,
+        "survival": 0.5280464216634428
+       },
+       {
+        "day": 37,
+        "survival": 0.5241779497098645
+       },
+       {
+        "day": 38,
+        "survival": 0.5203094777562862
+       },
+       {
+        "day": 39,
+        "survival": 0.5164410058027079
+       },
+       {
+        "day": 41,
+        "survival": 0.5145067698259187
+       },
+       {
+        "day": 45,
+        "survival": 0.5125725338491295
+       },
+       {
+        "day": 46,
+        "survival": 0.5106382978723403
+       },
+       {
+        "day": 48,
+        "survival": 0.5087040618955511
+       },
+       {
+        "day": 50,
+        "survival": 0.5067698259187619
+       },
+       {
+        "day": 54,
+        "survival": 0.5048355899419728
+       },
+       {
+        "day": 55,
+        "survival": 0.5029013539651835
+       },
+       {
+        "day": 57,
+        "survival": 0.5009671179883943
+       },
+       {
+        "day": 59,
+        "survival": 0.49903288201160517
+       },
+       {
+        "day": 60,
+        "survival": 0.497098646034816
+       },
+       {
+        "day": 62,
+        "survival": 0.49129593810444855
+       },
+       {
+        "day": 63,
+        "survival": 0.4893617021276594
+       },
+       {
+        "day": 64,
+        "survival": 0.48742746615087024
+       },
+       {
+        "day": 66,
+        "survival": 0.4854932301740811
+       },
+       {
+        "day": 67,
+        "survival": 0.47969052224371356
+       },
+       {
+        "day": 68,
+        "survival": 0.4777562862669244
+       },
+       {
+        "day": 70,
+        "survival": 0.4758220502901352
+       },
+       {
+        "day": 72,
+        "survival": 0.47388781431334603
+       },
+       {
+        "day": 73,
+        "survival": 0.4700193423597677
+       },
+       {
+        "day": 75,
+        "survival": 0.46808510638297857
+       },
+       {
+        "day": 76,
+        "survival": 0.4661508704061894
+       },
+       {
+        "day": 77,
+        "survival": 0.46421663442940025
+       },
+       {
+        "day": 79,
+        "survival": 0.4584139264990328
+       },
+       {
+        "day": 83,
+        "survival": 0.4545454545454545
+       },
+       {
+        "day": 86,
+        "survival": 0.4526112185686653
+       },
+       {
+        "day": 87,
+        "survival": 0.45067698259187616
+       },
+       {
+        "day": 89,
+        "survival": 0.448742746615087
+       },
+       {
+        "day": 91,
+        "survival": 0.44680851063829785
+       },
+       {
+        "day": 93,
+        "survival": 0.4448488241881299
+       },
+       {
+        "day": 98,
+        "survival": 0.4409294512877939
+       },
+       {
+        "day": 99,
+        "survival": 0.437010078387458
+       },
+       {
+        "day": 100,
+        "survival": 0.43505039193729
+       },
+       {
+        "day": 102,
+        "survival": 0.43309070548712203
+       },
+       {
+        "day": 103,
+        "survival": 0.43113101903695406
+       },
+       {
+        "day": 110,
+        "survival": 0.429162384246831
+       },
+       {
+        "day": 114,
+        "survival": 0.42522511466658486
+       },
+       {
+        "day": 118,
+        "survival": 0.42324732343557747
+       },
+       {
+        "day": 120,
+        "survival": 0.42126953220457014
+       },
+       {
+        "day": 121,
+        "survival": 0.4192917409735628
+       },
+       {
+        "day": 123,
+        "survival": 0.417304576324399
+       },
+       {
+        "day": 124,
+        "survival": 0.4133302470260714
+       },
+       {
+        "day": 126,
+        "survival": 0.4113430823769076
+       },
+       {
+        "day": 128,
+        "survival": 0.40736875307857995
+       },
+       {
+        "day": 130,
+        "survival": 0.40538158842941613
+       },
+       {
+        "day": 131,
+        "survival": 0.4033944237802523
+       },
+       {
+        "day": 140,
+        "survival": 0.4014072591310885
+       },
+       {
+        "day": 146,
+        "survival": 0.39942009448192467
+       },
+       {
+        "day": 147,
+        "survival": 0.39743292983276085
+       },
+       {
+        "day": 151,
+        "survival": 0.39544576518359703
+       },
+       {
+        "day": 154,
+        "survival": 0.3914714358852694
+       },
+       {
+        "day": 155,
+        "survival": 0.3894842712361056
+       },
+       {
+        "day": 156,
+        "survival": 0.3874971065869418
+       },
+       {
+        "day": 157,
+        "survival": 0.385509941937778
+       },
+       {
+        "day": 163,
+        "survival": 0.38352277728861417
+       },
+       {
+        "day": 175,
+        "survival": 0.37954844799028653
+       },
+       {
+        "day": 176,
+        "survival": 0.37756128334112277
+       },
+       {
+        "day": 179,
+        "survival": 0.37556360459328614
+       },
+       {
+        "day": 184,
+        "survival": 0.3715682470976129
+       },
+       {
+        "day": 188,
+        "survival": 0.36957056834977625
+       },
+       {
+        "day": 191,
+        "survival": 0.3675728896019396
+       },
+       {
+        "day": 192,
+        "survival": 0.365575210854103
+       },
+       {
+        "day": 203,
+        "survival": 0.36357753210626637
+       },
+       {
+        "day": 206,
+        "survival": 0.36157985335842974
+       },
+       {
+        "day": 213,
+        "survival": 0.3595821746105931
+       },
+       {
+        "day": 214,
+        "survival": 0.3575844958627565
+       },
+       {
+        "day": 216,
+        "survival": 0.35558681711491985
+       },
+       {
+        "day": 218,
+        "survival": 0.3535891383670832
+       },
+       {
+        "day": 223,
+        "survival": 0.3515914596192466
+       },
+       {
+        "day": 227,
+        "survival": 0.34959378087140996
+       },
+       {
+        "day": 229,
+        "survival": 0.34759610212357334
+       },
+       {
+        "day": 240,
+        "survival": 0.34558687609973765
+       },
+       {
+        "day": 241,
+        "survival": 0.34357765007590196
+       },
+       {
+        "day": 248,
+        "survival": 0.3395591980282306
+       },
+       {
+        "day": 252,
+        "survival": 0.3355407459805592
+       },
+       {
+        "day": 262,
+        "survival": 0.33353151995672353
+       },
+       {
+        "day": 264,
+        "survival": 0.32951306790905216
+       },
+       {
+        "day": 272,
+        "survival": 0.3275038418852165
+       },
+       {
+        "day": 273,
+        "survival": 0.3234853898375451
+       },
+       {
+        "day": 277,
+        "survival": 0.3214761638137094
+       },
+       {
+        "day": 280,
+        "survival": 0.31745771176603804
+       },
+       {
+        "day": 284,
+        "survival": 0.31544848574220236
+       },
+       {
+        "day": 287,
+        "survival": 0.31343925971836667
+       },
+       {
+        "day": 290,
+        "survival": 0.3074115816468596
+       },
+       {
+        "day": 294,
+        "survival": 0.30538913703076187
+       },
+       {
+        "day": 297,
+        "survival": 0.3033666924146641
+       },
+       {
+        "day": 299,
+        "survival": 0.3013442477985663
+       },
+       {
+        "day": 300,
+        "survival": 0.29932180318246854
+       },
+       {
+        "day": 301,
+        "survival": 0.29729935856637074
+       },
+       {
+        "day": 302,
+        "survival": 0.295276913950273
+       },
+       {
+        "day": 305,
+        "survival": 0.2932544693341752
+       },
+       {
+        "day": 307,
+        "survival": 0.291217979963799
+       },
+       {
+        "day": 315,
+        "survival": 0.2891814905934228
+       },
+       {
+        "day": 317,
+        "survival": 0.2871450012230466
+       },
+       {
+        "day": 318,
+        "survival": 0.2851085118526704
+       },
+       {
+        "day": 324,
+        "survival": 0.2830720224822942
+       },
+       {
+        "day": 325,
+        "survival": 0.281035533111918
+       },
+       {
+        "day": 327,
+        "survival": 0.2789990437415418
+       },
+       {
+        "day": 328,
+        "survival": 0.27492606500078937
+       },
+       {
+        "day": 329,
+        "survival": 0.2688165968896607
+       },
+       {
+        "day": 331,
+        "survival": 0.2647436181489083
+       },
+       {
+        "day": 333,
+        "survival": 0.2627071287785321
+       },
+       {
+        "day": 334,
+        "survival": 0.2606547293349498
+       },
+       {
+        "day": 335,
+        "survival": 0.25860232989136755
+       },
+       {
+        "day": 336,
+        "survival": 0.254497531004203
+       },
+       {
+        "day": 337,
+        "survival": 0.25244513156062076
+       },
+       {
+        "day": 339,
+        "survival": 0.25039273211703844
+       },
+       {
+        "day": 340,
+        "survival": 0.24834033267345615
+       },
+       {
+        "day": 341,
+        "survival": 0.24628793322987388
+       },
+       {
+        "day": 344,
+        "survival": 0.2421831343427093
+       },
+       {
+        "day": 347,
+        "survival": 0.23807833545554474
+       },
+       {
+        "day": 348,
+        "survival": 0.23602593601196248
+       },
+       {
+        "day": 349,
+        "survival": 0.22781633823763334
+       },
+       {
+        "day": 350,
+        "survival": 0.22367422299694908
+       },
+       {
+        "day": 351,
+        "survival": 0.22160316537660696
+       },
+       {
+        "day": 352,
+        "survival": 0.2153899925155806
+       },
+       {
+        "day": 353,
+        "survival": 0.20917681965455423
+       },
+       {
+        "day": 354,
+        "survival": 0.19260835869181728
+       },
+       {
+        "day": 355,
+        "survival": 0.18842122045938647
+       },
+       {
+        "day": 356,
+        "survival": 0.18632765134317109
+       },
+       {
+        "day": 358,
+        "survival": 0.18214051311074025
+       },
+       {
+        "day": 362,
+        "survival": 0.1800226001675921
+       },
+       {
+        "day": 363,
+        "survival": 0.17790468722444397
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "tests": {
+   "وسيلة الدفع في أول تبرع": {
+    "statistic": 0.7317178875578981,
+    "p_value": 0.39232692041261474,
+    "observed": 686.0,
+    "expected": 699.1272462010526,
+    "groups": [
+     "أبل باي",
+     "بطاقة الدفع"
+    ]
+   },
+   "مبلغ أول تبرع مقارنةً بالوسيط (10 ر.س)": {
+    "statistic": 6.896207474159667,
+    "p_value": 0.008637879956987754,
+    "observed": 448.0,
+    "expected": 489.28800228625903,
+    "groups": [
+     "أعلى من الوسيط",
+     "الوسيط فأقل"
+    ]
+   }
+  }
+ },
+ "cox": {
+  "n": 1290,
+  "events": 1137,
+  "penalizer": 0.01,
+  "reference": {
+   "ini": "إغاثة",
+   "pay": "أبل باي"
+  },
+  "concordance": 0.58822942952028,
+  "log_likelihood_ratio_p": 2.224772172926707e-06,
+  "terms": [
+   {
+    "term": "ini_الحملات المخصصة",
+    "hazard_ratio": 0.722484438100314,
+    "ci95": [
+     0.5444866164039888,
+     0.9586714302447316
+    ],
+    "p_value": 0.02429528679787844,
+    "significant": true
+   },
+   {
+    "term": "ini_زكاة الفطر",
+    "hazard_ratio": 0.6158234612939893,
+    "ci95": [
+     0.45675862813491175,
+     0.8302821493020482
+    ],
+    "p_value": 0.001473091700906668,
+    "significant": true
+   },
+   {
+    "term": "ini_فرجت",
+    "hazard_ratio": 0.8331546206026298,
+    "ci95": [
+     0.6311588154558329,
+     1.0997970793296903
+    ],
+    "p_value": 0.19757582452216266,
+    "significant": false
+   },
+   {
+    "term": "ini_فرجت - تبرع سريع",
+    "hazard_ratio": 0.9976708273317347,
+    "ci95": [
+     0.7063872240403203,
+     1.409067216725276
+    ],
+    "p_value": 0.989438213821647,
+    "significant": false
+   },
+   {
+    "term": "ini_فرصة عامة",
+    "hazard_ratio": 0.8840652650498295,
+    "ci95": [
+     0.6743607449696203,
+     1.1589811517021722
+    ],
+    "p_value": 0.3724080381441751,
+    "significant": false
+   },
+   {
+    "term": "ini_مبادرات أخرى",
+    "hazard_ratio": 1.0531977054482844,
+    "ci95": [
+     0.7974452396552087,
+     1.3909737642187525
+    ],
+    "p_value": 0.7149674176587804,
+    "significant": false
+   },
+   {
+    "term": "ini_مشروع",
+    "hazard_ratio": 1.0693705186185205,
+    "ci95": [
+     0.8523132794790599,
+     1.3417053724534147
+    ],
+    "p_value": 0.5623017648311424,
+    "significant": false
+   },
+   {
+    "term": "pay_بطاقة الدفع",
+    "hazard_ratio": 1.088065104885853,
+    "ci95": [
+     0.964248914374295,
+     1.2277801455845976
+    ],
+    "p_value": 0.17089995742813535,
+    "significant": false
+   },
+   {
+    "term": "pay_نقاط قطاف",
+    "hazard_ratio": 1.2245086500315174,
+    "ci95": [
+     0.6531255896371243,
+     2.295762802426844
+    ],
+    "p_value": 0.5276548020023736,
+    "significant": false
+   },
+   {
+    "term": "log_first_amount",
+    "hazard_ratio": 0.9801445377541433,
+    "ci95": [
+     0.9357540284874879,
+     1.0266408539454432
+    ],
+    "p_value": 0.39637864179862414,
+    "significant": false
+   }
+  ],
+  "first_amount_effect": "بعد تثبيت المبادرة ووسيلة الدفع، تضاعُف مبلغ أول تبرع يرافقه نسبة خطر 0.986 (فاصل ثقة 95%: 0.955–1.018، p = 0.3964)، فلا يصمد أثر حجم أول تبرع بعد ضبط المبادرة، ويُرجَّح أن المبادرة هي العامل الأقرب للتفسير."
+ },
+ "cohorts": {
+  "months": [
+   {
+    "month": "2021-04",
+    "donors": 172,
+    "return_30d_pct": 70.93023255813955
+   },
+   {
+    "month": "2021-05",
+    "donors": 228,
+    "return_30d_pct": 35.96491228070175
+   },
+   {
+    "month": "2021-07",
+    "donors": 60,
+    "return_30d_pct": 38.33333333333335
+   },
+   {
+    "month": "2021-09",
+    "donors": 33,
+    "return_30d_pct": 39.39393939393939
+   },
+   {
+    "month": "2021-10",
+    "donors": 33,
+    "return_30d_pct": 45.454545454545446
+   },
+   {
+    "month": "2021-11",
+    "donors": 40,
+    "return_30d_pct": 25.00000000000001
+   },
+   {
+    "month": "2021-12",
+    "donors": 32,
+    "return_30d_pct": 46.875
+   },
+   {
+    "month": "2022-01",
+    "donors": 30,
+    "return_30d_pct": 56.666666666666664
+   },
+   {
+    "month": "2022-02",
+    "donors": 73,
+    "return_30d_pct": 50.68493150684935
+   },
+   {
+    "month": "2022-03",
+    "donors": 41,
+    "return_30d_pct": 51.21951219512195
+   },
+   {
+    "month": "2022-04",
+    "donors": 207,
+    "return_30d_pct": 60.386473429951714
+   },
+   {
+    "month": "2022-05",
+    "donors": 38,
+    "return_30d_pct": 31.57894736842104
+   },
+   {
+    "month": "2022-07",
+    "donors": 44,
+    "return_30d_pct": 36.36363636363635
+   }
+  ],
+  "min_pct": 25.00000000000001,
+  "max_pct": 70.93023255813955,
+  "median_pct": 45.454545454545446,
+  "note": "معدل العودة خلال 30 يوماً يتراوح بين 25.0% و70.9% عبر 13 فوج دخول شهري (وسيط 45.5%)، فالمعدل الإجمالي وصف لمتوسط الفترة لا ثابت شهري."
+ },
+ "peak_window": {
+  "day": "الجمعة",
+  "hour_start": 16,
+  "transactions": 1826,
+  "share_txn_pct": 4.461275348155387,
+  "share_amount_pct": 3.066186680715036,
+  "distinct_donors": 407,
+  "distinct_dates": 110
+ },
+ "peak_test": {
+  "window": "الجمعة 16:00–18:59",
+  "n_peak": 1826,
+  "n_rest": 39104,
+  "median_peak": 10.0,
+  "median_rest": 10.0,
+  "mean_peak": 25.818181818181817,
+  "mean_rest": 38.11377352700491,
+  "median_diff": 0.0,
+  "mean_diff": -12.295591708823093,
+  "rank_biserial": 0.038440363148771306,
+  "mannwhitney_p": 0.004193891946740202,
+  "cluster_bootstrap": {
+   "resamples": 2000,
+   "ci95": [
+    -5.0,
+    5.0
+   ],
+   "excludes_zero": false
+  },
+  "cluster_bootstrap_mean": {
+   "resamples": 2000,
+   "ci95": [
+    -39.77044533474957,
+    3.8255468916245685
+   ],
+   "excludes_zero": false
+  },
+  "verdict": "الفاصلان العنقوديان للوسيط وللمتوسط يشملان الصفر، وحجم الأثر الرتبي ضئيل، فالنافذة تتميز بكثافة العمليات لا بقيمة التبرع فيها"
+ },
+ "value_sizing": {
+  "cohort": 1290,
+  "current_return_rate_30d_pct": 50.07751937984495,
+  "donors_per_point": 12.9,
+  "median_second_gift": 10.0,
+  "median_lifetime_returned": 200.0,
+  "median_lifetime_not_returned": 10.0,
+  "lifetime_gap": 190.0,
+  "lower_bound_sar": 129.0,
+  "upper_bound_sar": 2451.0,
+  "lower_bound_share_pct": 0.008389998341511955,
+  "upper_bound_share_pct": 0.15940996848872716,
+  "formula_low": "1,290 × 1% = 12.9 معرّفاً × وسيط التبرع الثاني 10 ر.س = 129 ر.س",
+  "formula_high": "12.9 معرّفاً × فارق الوسيط في الإجمالي بين العائد وغير العائد 190 ر.س = 2,451 ر.س",
+  "basis": "تقدير محصور بين حدّين: الأدنى يحتسب التبرع الثاني وحده، والأعلى يحتسب فارق الإجمالي بين من عاد ومن لم يعد داخل الفوج نفسه. تُستخدم الوسائط لا المتوسطات تفادياً لأثر القيم المتطرفة.",
+  "limitation": "الحد الأعلى ارتباط وصفي لا أثر سببي، إذ قد يكون العائد أكثر سخاءً ابتداءً لا بسبب عودته. ولا يتضمن التقدير كلفة التنفيذ لعدم توافر تكاليف في البيانات."
+ },
+ "segmentation": {
+  "k": 3,
+  "silhouette_by_k": {
+   "2": 0.38624813402996994,
+   "3": 0.30280830215072113,
+   "4": 0.3010981478979872,
+   "5": 0.2873552709771276,
+   "6": 0.2886131787712894
+  },
+  "silhouette_chosen": 0.30280830215072113,
+  "stability_ari": {
+   "1": 1.0,
+   "7": 1.0,
+   "99": 1.0,
+   "2024": 1.0
+  },
+  "stability_ari_min": 1.0,
+  "features": [
+   "recency",
+   "frequency",
+   "monetary (log1p + standardized)"
+  ],
+  "segments": [
+   {
+    "donors": 522,
+    "recency_median": 324.5,
+    "frequency_median": 2.0,
+    "monetary_median": 31.5,
+    "monetary_sum": 33418.0,
+    "frequency_sum": 1577,
+    "donor_share_pct": 38.0743982495,
+    "amount_share_pct": 2.1734648417,
+    "txn_share_pct": 3.8529196189,
+    "segment": "منخفضو النشاط الأخير",
+    "description": "منخفضو النشاط الأخير: 522 معرفاً (38.1%)، وسيط التكرار 2 عملية، وسيط المبلغ الإجمالي 32 ر.س، وسيط الأيام منذ آخر تبرع 324، ويمثل 2.2% من إجمالي المبالغ."
+   },
+   {
+    "donors": 245,
+    "recency_median": 16.0,
+    "frequency_median": 69.0,
+    "monetary_median": 1225.0,
+    "monetary_sum": 1213913.0,
+    "frequency_sum": 31067,
+    "donor_share_pct": 17.8701677608,
+    "amount_share_pct": 78.9513802848,
+    "txn_share_pct": 75.9027608111,
+    "segment": "الأعلى مساهمة",
+    "description": "الأعلى مساهمة: 245 معرفاً (17.9%)، وسيط التكرار 69 عملية، وسيط المبلغ الإجمالي 1,225 ر.س، وسيط الأيام منذ آخر تبرع 16، ويمثل 79.0% من إجمالي المبالغ."
+   },
+   {
+    "donors": 604,
+    "recency_median": 84.0,
+    "frequency_median": 10.0,
+    "monetary_median": 227.0,
+    "monetary_sum": 290214.0,
+    "frequency_sum": 8286,
+    "donor_share_pct": 44.0554339898,
+    "amount_share_pct": 18.8751548735,
+    "txn_share_pct": 20.24431957,
+    "segment": "المتكررون",
+    "description": "المتكررون: 604 معرفاً (44.1%)، وسيط التكرار 10 عملية، وسيط المبلغ الإجمالي 227 ر.س، وسيط الأيام منذ آخر تبرع 84، ويمثل 18.9% من إجمالي المبالغ."
+   }
+  ]
+ },
+ "prediction": {
+  "horizon_days": 90,
+  "cutoffs": {
+   "train": "2022-10-16",
+   "validation": "2023-01-14",
+   "test": "2023-04-14"
+  },
+  "label_windows": {
+   "train": [
+    "2022-10-16",
+    "2023-01-14"
+   ],
+   "validation": [
+    "2023-01-14",
+    "2023-04-14"
+   ],
+   "test": [
+    "2023-04-14",
+    "2023-07-13"
+   ]
+  },
+  "sizes": {
+   "train": 1168,
+   "validation": 1219,
+   "test": 1288
+  },
+  "positive_rate": {
+   "train": 0.3133561643835616,
+   "validation": 0.4741591468416735,
+   "test": 0.5279503105590062
+  },
+  "validation": {
+   "Logistic Regression": {
+    "auc": 0.7737990488477671,
+    "precision": 0.7602905569007264,
+    "recall": 0.5432525951557093
+   },
+   "Gradient Boosting": {
+    "auc": 0.7131307051590021,
+    "precision": 0.8227272727272728,
+    "recall": 0.31314878892733566
+   }
+  },
+  "chosen_model": "Logistic Regression",
+  "selection_rule": "أعلى AUC على مجموعة التحقق فقط",
+  "test": {
+   "model": "Logistic Regression",
+   "auc": 0.7286813080495356,
+   "precision": 0.6866359447004609,
+   "recall": 0.6573529411764706
+  },
+  "baseline": {
+   "name": "عدد التبرعات",
+   "validation_auc": 0.6929578567225734,
+   "test_auc": 0.7065063854489164
+  },
+  "test_margin_over_baseline": 0.02217492260061915,
+  "bootstrap": {
+   "resamples": 2000,
+   "ci95": [
+    -0.0012291997690197507,
+    0.04532047096448008
+   ],
+   "excludes_zero": false,
+   "share_model_not_better": 0.0335
+  },
+  "verdict": "تحسن محدود عن خط الأساس على نافذة اختبار واحدة",
+  "note": "لا يتجاوز الفرق ضجيج المعاينة داخل نافذة الاختبار (فاصل ثقة 95%: -0.001 إلى +0.045)، ولا يثبت ذلك ثباته عبر فترات أخرى لأن التقييم على نافذة واحدة.",
+  "base_rate_note": "تتفاوت نسبة العائدين بين النوافذ، فمقارنة الدقة والاسترجاع بين نافذتين غير دقيقة لاختلاف القاعدة؛ والمقارنة المعتمدة هي AUC بين النموذج وخط الأساس داخل النافذة نفسها، وتلزم إعادة معايرة العتبة عند أي استخدام تشغيلي."
+ },
+ "insights": [
+  {
+   "id": "concentration",
+   "title": "اعتماد مرتفع على معرّف متبرع واحد",
+   "observation": "معرّف واحد يمثل 27.2% من إجمالي المبالغ المرصودة عبر 93 عملية، وأعلى 1% من المعرفات تمثل 50.3%.",
+   "metric": "متوسط التبرع 37.6 ر.س مع المعرف الأكبر و27.4 ر.س بدونه.",
+   "interpretation": "التركّز العالي يجعل الأرقام الإجمالية حساسة لسلوك جهة واحدة، وقد يكون المعرف مؤسسياً أو وسيطاً (غير مؤكد من البيانات).",
+   "action": "التحقق من طبيعة المعرف مع فريق البيانات، وعرض المؤشرات بوسيط المبلغ وبالتحليل مع/بدون المعرف، وبناء خطة تنويع لقاعدة المتبرعين.",
+   "limitation": "لا تتضمن البيانات هوية المتبرع أو نوعه، والعينة قد لا تمثل المنصة.",
+   "priority": "مرتفعة",
+   "priority_key": "high",
+   "affected_amount_share_pct": 27.2
+  },
+  {
+   "id": "high_value",
+   "title": "مبادرات قليلة العدد وعالية القيمة",
+   "observation": "مبادرات (تيسرت التنفيذ القضائي، كفالة الأيتام، الأضاحي) متوسط عمليتها 4 أضعاف متوسط العينة فأكثر.",
+   "metric": "تمثل 14.1% من المبالغ بـ 1.6% فقط من العمليات.",
+   "interpretation": "هذه المبادرات تجذب تبرعاً أكبر لكل عملية (تفسير محتمل: طبيعة المبادرة مثل الكفالة أو التنفيذ القضائي، دون إثبات).",
+   "action": "استهداف شريحة «الأعلى مساهمة» بحملات مخصصة لهذه المبادرات في مواسمها.",
+   "limitation": "عدد العمليات قليل نسبياً؛ يلزم الحذر في التعميم.",
+   "priority": "مرتفعة",
+   "priority_key": "high",
+   "affected_amount_share_pct": 14.1
+  },
+  {
+   "id": "dormant",
+   "title": "متبرعون متكررون خفّ نشاطهم المرصود",
+   "observation": "363 معرفاً سبق أن تبرع 3 مرات فأكثر لم يظهر خلال آخر 90 يوماً من العينة.",
+   "metric": "يمثلون 10.4% من المبالغ المرصودة.",
+   "interpretation": "انقطاع مرصود وليس مؤكداً (قد يكونون تبرعوا عبر قناة أخرى أو انتهت مواسم تبرعهم).",
+   "action": "حملة استرجاع موجهة (تذكير شخصي بالمبادرة التي تبرعوا لها سابقاً) مع قياس الاستجابة.",
+   "limitation": "العينة تنتهي في 13 يوليو 2023 وقد لا تشمل كل أنشطة المعرف.",
+   "priority": "مرتفعة",
+   "priority_key": "high",
+   "affected_amount_share_pct": 10.4
+  },
+  {
+   "id": "return_driver",
+   "title": "باب الدخول يحدد سرعة العودة، لا حجم أول تبرع",
+   "observation": "بالمقارنة الثنائية يبدو أن من تبرع أولاً بالوسيط (10 ر.س) فأقل يعود أسرع (53.2% مقابل 45.5% خلال 30 يوماً، Log-rank p = 0.0086)، لكن هذا الفرق يزول عند ضبط المبادرة: نسبة خطر مبلغ أول تبرع 0.980 بقيمة p = 0.40.",
+   "metric": "نموذج Cox على 1,290 معرّفاً: المبادرات ذات الأثر الدال هي الحملات المخصصة (نسبة خطر 0.72)، زكاة الفطر (نسبة خطر 0.62) مقارنةً بـ«إغاثة». ولا أثر دال لوسيلة الدفع.",
+   "interpretation": "الباب الذي يدخل منه المتبرع أول مرة هو ما يفسّر تفاوت زمن العودة. ومبادرات الالتزام الموسمي مثل زكاة الفطر عودتها أبطأ بطبيعتها لأنها فريضة سنوية لا عادة شهرية، وهو تفسير معقول لا مثبت.",
+   "action": "بناء متابعة ما بعد التبرع الأول على المبادرة لا على مبلغ التبرع: متابعة قصيرة المدى لمبادرات النشاط المستمر، ومتابعة سنوية موقوتة لمبادرات الالتزام الموسمي، مع قياس الفرق في تجربة مضبوطة.",
+   "limitation": "نموذج Cox يفترض تناسب المخاطر ولم تُختبر هذه الفرضية. ودرجة التطابق (C-index = 0.588) قريبة من الصدفة، فالعوامل المتاحة تفسّر جزءاً صغيراً من التباين. كما يقيس التحليل أول تبرع مرصود داخل العينة فقط (left truncation).",
+   "priority": "متوسطة",
+   "priority_key": "medium",
+   "affected_amount_share_pct": 9.6
+  },
+  {
+   "id": "seasonal_peak",
+   "title": "ذروة نشاط واضحة في 2023-04",
+   "observation": "سجّل شهر 2023-04 4,267 عملية، أي 2.5 ضعف وسيط الأشهر المكتملة (1,688).",
+   "metric": "إجمالي الشهر 119,496 ر.س (7.8% من الإجمالي).",
+   "interpretation": "أعلى الأشهر نشاطاً: 2023-04، 2022-04، 2023-03. أبريل 2022 وأبريل 2023 يتزامنان مع شهر رمضان في التقويم، لكن البيانات لا تثبت أن الموسم هو السبب.",
+   "action": "تخطيط حملات مسبقة قبل المواسم المرصودة وقياس الفرق بعد التجربة، وتجهيز الطاقة التشغيلية لاستقبال الذروة.",
+   "limitation": "ذروة واحدة أو اثنتان لا تكفيان لإثبات نمط موسمي مستقر.",
+   "priority": "متوسطة",
+   "priority_key": "medium",
+   "affected_amount_share_pct": 7.8
+  },
+  {
+   "id": "recurring",
+   "title": "التبرع الدوري: عدد كبير بمبالغ صغيرة",
+   "observation": "مبادرة «التبرع الدوري» تمثل 27.5% من العمليات و6.4% فقط من المبالغ.",
+   "metric": "متوسط العملية 8.7 ر.س مقابل 37.6 ر.س للعينة كلها.",
+   "interpretation": "المساهمة المالية تتكوّن من تبرعات صغيرة متكررة تعطي انتظاماً في التدفق أكثر مما تعطي قيمة لكل عملية (تفسير محتمل).",
+   "action": "اختبار رفع القيمة تدريجياً (اقتراح مبالغ أعلى قليلاً عند التجديد) وحملات لتحويل المتبرعين لمرة واحدة إلى دوريين، مع قياس أثر كل تجربة.",
+   "limitation": "لا تحدد البيانات هل العمليات اشتراكات آلية أم تبرعات يدوية متتالية.",
+   "priority": "متوسطة",
+   "priority_key": "medium",
+   "affected_amount_share_pct": 6.4
+  },
+  {
+   "id": "peak_window",
+   "title": "نافذة الذروة: الجمعة 16:00–18:59",
+   "observation": "هذه النافذة (3 ساعات في يوم واحد من الأسبوع) تضم 4.5% من العمليات و3.1% من المبالغ.",
+   "metric": "شارك فيها 407 معرفاً موزعين على 110 الجمعة مختلفة، فليست ناتجة عن يوم أو متبرع واحد.",
+   "interpretation": "الأوقات كما سُجلت في البيانات (المنطقة الزمنية غير موثقة)، وقد تعكس سلوك المتبرع أو توقيت الحملات والتذكيرات.",
+   "action": "جدولة التذكيرات والمحتوى قبل هذه النافذة، ثم تجربة نافذة أخرى في حملة مختارة لقياس الفرق.",
+   "limitation": "ارتباط زمني لا يثبت السبب؛ ولا يمكن فصل أثر الحملات الداخلية عن عادة المتبرعين. ويُظهر اختبار الفرق أن النافذة تتميز بالكثافة لا بقيمة التبرع: حجم الأثر الرتبي +0.038 وفاصل الثقة العنقودي للفرق في المتوسط [-39.8, +3.8] يشمل الصفر.",
+   "priority": "متوسطة",
+   "priority_key": "medium",
+   "affected_amount_share_pct": 3.1
+  },
+  {
+   "id": "one_time",
+   "title": "14% من المعرفات المرصودة تبرعت مرة واحدة فقط",
+   "observation": "192 معرفاً (14.0%) ظهر في عملية واحدة فقط.",
+   "metric": "مساهمتهم 1.2% من المبالغ؛ ونسبة المتكررين 86.0%.",
+   "interpretation": "مجال لرحلة «التبرع الثاني»، لكن العينة قد تخفي تبرعات سابقة أو لاحقة للمعرف خارجها.",
+   "action": "تجربة رسالة شكر وتذكير بعد أول تبرع مع عرض مبادرة مشابهة، ومقارنة معدل التبرع الثاني بين مجموعة تجريبية وضابطة.",
+   "limitation": "المتكرر هنا يعني ظهور المعرف أكثر من مرة داخل العينة فقط.",
+   "priority": "منخفضة",
+   "priority_key": "low",
+   "affected_amount_share_pct": 1.2
+  }
+ ],
+ "action_plans": [
+  {
+   "id": "second_gift",
+   "title": "اختبار رحلة تشجع على التبرع الثاني",
+   "kind": "تجربة عشوائية مضبوطة (A/B)",
+   "owner": "مسؤول التسويق والعلاقة مع المتبرعين (مقترح)",
+   "duration": "10-11 أسبوع: أسبوعان للإعداد، 4 أسابيع لدخول المتبرعين الجدد، 30 يومًا (≈4 أسابيع) لمتابعة آخر مشارك، وأسبوع للتحليل (مقترحة)",
+   "design": "يُوزَّع المتبرعون لأول مرة عشوائياً بين مجموعة تجريبية تتلقى رسالة شكر ثم عرض مبادرة مشابهة، ومجموعة ضابطة بلا رسالة. تُقاس النتيجة بعد 30 يوماً من أول تبرع لكل مشارك، ويُحدَّد حجم العينة قبل البدء بحساب القدرة الإحصائية.",
+   "kpi": "معدل التبرع الثاني خلال 30 يوماً من أول تبرع (نسبة المتبرعين لأول مرة الذين تبرعوا مرة ثانية)، ومتوسط قيمة التبرع الثاني كمؤشر مرافق.",
+   "reference": "مرجع وصفي من العينة: 14.0% من المعرفات المرصودة ظهرت في عملية واحدة فقط. هذا ليس معدلاً أساسياً للتجربة؛ يُقاس المعدل الأساسي من المجموعة الضابطة.",
+   "decision_rule": "قبل التجربة: تُحدد أصغر زيادة مهمة عمليًا في معدل التبرع الثاني، ويُحسب حجم العينة اللازم لاكتشافها بقدرة 80% ومستوى دلالة 5%. بعد التجربة: تُعمَّم الرحلة إذا تفوقت المجموعة التجريبية بفارق دال إحصائيًا (فاصل ثقة 95% للفرق لا يشمل الصفر) ولم ينخفض متوسط قيمة التبرع الثاني عن حد انخفاض مقبول يُحدد مسبقًا. وإلا تُعدَّل الرسالة أو تُوقَف.",
+   "value": "حجم الرافعة في العينة: رفع معدل العودة خلال 30 يوماً نقطة مئوية واحدة يقابل بين 129 و2,451 ر.س (0.01%–0.16% من إجمالي العينة). الحد الأدنى يحتسب التبرع الثاني وحده والأعلى يحتسب فارق الإجمالي بين العائد وغير العائد. الرافعة صغيرة بمقياس العينة، فقيمة التجربة في التعلّم المنهجي أكثر منها في العائد المباشر.",
+   "limits": "لا يظهر في العينة هل المعرّف تبرع قبلها أو بعدها، فقد يكون بعض «المتبرعين لمرة واحدة» متبرعين متكررين خارج العينة. لا يُتوقع أثر محدد قبل التجربة."
+  },
+  {
+   "id": "recurring_amounts",
+   "title": "اختبار مبالغ مقترحة للتبرع الدوري",
+   "kind": "تجربة عشوائية مضبوطة (A/B)",
+   "value": "حجم الرافعة في العينة: «التبرع الدوري» يمثل 97,744 ر.س (6.4% من المبالغ) عبر 11,274 عملية بمتوسط 8.7 ر.س. رفع متوسط العملية ريالاً واحداً يقابل 11,274 ر.س على حجم العينة (0.73% من الإجمالي)، بافتراض ثبات عدد العمليات وهو ما تختبره التجربة نفسها.",
+   "owner": "مسؤول المنتج وتجربة التبرع (مقترح)",
+   "duration": "6 أسابيع: أسبوع للإعداد، 4 أسابيع لعرض التجربة، وأسبوع للتحليل (مقترحة)",
+   "design": "عند إنشاء تبرع دوري أو تجديده تُعرض عشوائياً إحدى صيغتين: بلا مبلغ مقترح (ضابطة)، أو بمبلغ مقترح أعلى قليلاً من المعتاد (تجريبية). تُحدَّد قيمة المبلغ المقترح مع الفريق قبل البدء ولا تُفترض هنا.",
+   "kpi": "متوسط قيمة التبرع الدوري، مع مؤشر حماية: معدل إتمام أو استمرار التبرع الدوري.",
+   "reference": "مرجع وصفي من العينة: «التبرع الدوري» يمثل 27.5% من العمليات و6.4% من المبالغ، بمتوسط 8.7 ر.س للعملية.",
+   "decision_rule": "قبل التجربة: تُحدد أصغر زيادة مهمة عمليًا في متوسط القيمة، وحد أقصى مقبول للانخفاض في معدل الإتمام/الاستمرار، ويُحسب حجم العينة اللازم. بعد التجربة: تُعتمد الصيغة التجريبية إذا ارتفع متوسط القيمة بفارق دال إحصائيًا (فاصل ثقة 95%) ولم ينخفض معدل الإتمام/الاستمرار عن الحد المقبول المُحدد مسبقًا. غياب الدلالة في الانخفاض لا يكفي؛ يُستخدم اختبار عدم الدونية (non-inferiority) بهامش مُحدد مسبقًا. وإلا يُبقى على الصيغة الحالية.",
+   "limits": "لا تحدد البيانات هل عمليات «التبرع الدوري» اشتراكات آلية أم تبرعات يدوية متتالية. قد يختلف السلوك بين المبادرات، ولا يُفترض عائد مالي."
+  },
+  {
+   "id": "concentration_watch",
+   "title": "متابعة مخاطر تركّز التبرعات",
+   "kind": "متابعة مستمرة",
+   "value": "حجم المخاطرة لا الرافعة: المبلغ المعرَّض لقرار جهة واحدة هو 417,935 ر.س (27.2% من الإجمالي)، ونصيب أعلى 1% من المعرفات 774,045 ر.س (50.3%). هذه الخطة تحمي إيراداً قائماً ولا تضيف إيراداً جديداً، فتُقاس بانخفاض التعرّض لا بالعائد.",
+   "owner": "مسؤول التحليل بالتنسيق مع الإدارة المالية (مقترح)",
+   "duration": "مستمرة: تقرير شهري، ومراجعة ربع سنوية للعتبات (مقترحة)",
+   "design": "لوحة متابعة شهرية تعرض حصة أكبر معرّف وحصة أعلى 1% وأعلى 10% من المعرفات من المبالغ، مع المتوسط والوسيط معروضين مع المعرّف الأكبر وبدونه. يُتحقق مع مصدر البيانات من طبيعة المعرّف الأكبر (مؤسسة أو وسيط أو متبرع كبير أو حساب اختبار).",
+   "kpi": "حصة أكبر معرّف من مبالغ الشهر، وحصة أعلى 1% من المعرفات، ونسبة الفرق بين المتوسط والوسيط.",
+   "reference": "مرجع وصفي من العينة: أكبر معرّف = 27.2% من إجمالي المبالغ، وأعلى 1% من المعرفات = 50.3%. داخل الشهر الواحد (الأشهر المكتملة) تتراوح حصة أكبر معرّف بين 5.9% و74.4% بوسيط 13.8%.",
+   "decision_rule": "تحدّد الإدارة عتبات الإنذار قبل بدء المتابعة (ولا تُفترض هنا). عند تجاوز العتبة يُفتح تحقق من هوية المعرّف وتُراجَع خطة تنويع قاعدة المتبرعين، ويُعرض أي مؤشر متوسط بالنسختين مع المعرّف وبدونه.",
+   "limits": "المعرّف مستعار ولا يمثل بالضرورة شخصاً واحداً. العينة قد لا تعكس تركّز المنصة كلها، ولا يوجد في البيانات ما يحدد سبب التركّز."
+  }
+ ],
+ "priority_note": "أولوية التوصيات تعتمد على الحجم المالي المتأثر في العينة (نسبة المبالغ التي يمسّها الموضوع)، ولا تمثل تقديراً للعائد المتوقع أو لسهولة التنفيذ. والحجم ليس فرصة: موضوع كبير الحصة قد تكون رافعته الفعلية صغيرة، ولذلك يُقدَّر حجم الرافعة ماليًا لخطة التبرع الثاني في قسم خطط المتابعة.",
+ "generated_by": "scripts/run_analysis.py"
+}

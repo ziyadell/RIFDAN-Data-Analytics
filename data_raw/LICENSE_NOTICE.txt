@@ -1,0 +1,4 @@
+Place the original, unmodified dataset in this folder locally; it is not included in the public repository: "A sample of donations for different IDs in Ehsan"
+Source: https://open.data.gov.sa/ar/datasets/view/cc3b177a-5e5d-4845-bb92-6119b1322b05
+Licence: Open Data License v2.0 (ODC Attribution License), Saudi Data & AI Authority (SDAIA). Copy of the licence: ../data_license/Open_Data_License_Ar.pdf
+Contains pseudonymous user IDs (the licence does not cover personal data, clause 4.3-d). Do not publish individual IDs or commit the dataset. See README.md in this folder.

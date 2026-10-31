@@ -1,0 +1,6 @@
+{
+  "name": "rifdan-validation",
+  "private": true,
+  "description": "Dev dependency for validation/validate_dashboard.cjs (jsdom stubs, not a real-browser test)",
+  "devDependencies": { "jsdom": "30.1.3" }
+}

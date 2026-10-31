@@ -1,0 +1,78 @@
+# ---------------------------------------------------------------------------
+# Donation data: never commit. The raw and cleaned files hold pseudonymous donor
+# identifiers, and their public redistribution has not been verified as permissible.
+# See data_raw/README.md for how to obtain the dataset locally.
+# ---------------------------------------------------------------------------
+data_raw/*
+!data_raw/README.md
+!data_raw/LICENSE_NOTICE.txt
+data_clean/*
+!data_clean/LICENSE_NOTICE.txt
+
+# Release allow-list: only the executive report is published from report/
+report/*
+!report/executive_summary.pdf
+*.pptx
+*usage_log*
+
+# Tabular and archive copies anywhere in the repository
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.xlsm
+*.ods
+*.parquet
+*.feather
+*.pkl
+*.pickle
+*.sqlite
+*.sqlite3
+*.db
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# Secrets and local environment
+.env
+.env.*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (validation/ installs jsdom locally)
+node_modules/
+validation/package-lock.json
+npm-debug.log*
+
+# Temporary files and logs
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+~$*
+scratch/
+tmp/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+desktop.ini

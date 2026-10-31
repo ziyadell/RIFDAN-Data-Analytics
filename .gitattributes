@@ -1,0 +1,5 @@
+# Keep every file byte-for-byte as prepared: no line-ending conversion on any platform.
+* -text
+
+# The dashboard bundles the Plotly library; keep it out of the repository's language statistics.
+outputs/dashboard/*.html linguist-vendored
