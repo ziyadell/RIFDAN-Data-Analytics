@@ -4,7 +4,7 @@
 
 | Start here | What it is | Needs the dataset? |
 |---|---|---|
-| [`outputs/dashboard/RIFDAN_Dashboard.html`](outputs/dashboard/RIFDAN_Dashboard.html) | Interactive dashboard; download or clone, then open it in a browser | No |
+| [`outputs/dashboard/RIFDAN_Dashboard.html`](outputs/dashboard/RIFDAN_Dashboard.html) | Interactive dashboard; [open it online](https://ziyadell.github.io/RIFDAN-Data-Analytics/outputs/dashboard/RIFDAN_Dashboard.html), or download the file and open it in a browser | No |
 | [`report/executive_summary.pdf`](report/executive_summary.pdf) | 8-page executive report (Arabic) | No |
 | [`analysis.ipynb`](analysis.ipynb) | Full analysis with saved outputs | To read: no. To re-run: yes |
 
@@ -94,7 +94,11 @@ The 0.022 test advantage is within sampling noise (95% CI −0.001 to +0.045) an
 
 ## Interactive dashboard
 
-An Arabic, single-file dashboard that runs in the browser without a server or dataset. GitHub doesn't display HTML files as pages, so download or clone the repository and open the file locally.
+[![RIFDAN dashboard overview page in Arabic, showing key indicators, an executive summary, and charts of donations over time, by initiative and by payment method](assets/dashboard-preview.png)](https://ziyadell.github.io/RIFDAN-Data-Analytics/outputs/dashboard/RIFDAN_Dashboard.html)
+
+### [Explore Interactive Dashboard](https://ziyadell.github.io/RIFDAN-Data-Analytics/outputs/dashboard/RIFDAN_Dashboard.html)
+
+An Arabic, single-file dashboard that runs in the browser without a server or dataset. Open it online through GitHub Pages, or download the file and open it locally. The screenshot shows the overview page of the current public dashboard with no filters applied.
 
 | Page | Content |
 |---|---|
@@ -212,6 +216,8 @@ RIFDAN-Data-Analytics/
 ├── README.md
 ├── analysis.ipynb
 ├── requirements.txt
+├── assets/
+│   └── dashboard-preview.png
 ├── data_clean/
 │   └── LICENSE_NOTICE.txt
 ├── data_license/
@@ -267,7 +273,7 @@ The [MIT licence](LICENSE) applies only to eligible original project code: the c
 
 | Material | Terms |
 |---|---|
-| Source dataset, and data and analysis outputs derived from it, including `outputs/`, the data embedded in the dashboard, the notebook's outputs and the executive report | Saudi Open Data License v2.0 ([official page](https://open.data.gov.sa/ar/pages/policies/license), [copy](data_license/Open_Data_License_Ar.pdf), [attribution](data_license/ATTRIBUTION_AR.md)); personal data isn't covered (clause 4.3-d) |
+| Source dataset, and data and analysis outputs derived from it, including `outputs/`, `assets/`, the data embedded in the dashboard, the notebook's outputs and the executive report | Saudi Open Data License v2.0 ([official page](https://open.data.gov.sa/ar/pages/policies/license), [copy](data_license/Open_Data_License_Ar.pdf), [attribution](data_license/ATTRIBUTION_AR.md)); personal data isn't covered (clause 4.3-d) |
 | IBM Plex Sans Arabic fonts, including the copies embedded in the dashboard | SIL Open Font License 1.1 ([licence](fonts/LICENSE_OFL.txt)); IBM Plex is a trademark of IBM Corp. |
 | Plotly.js bundled in the dashboard | Its own MIT licence, with the notice kept in the file |
 | Python and Node.js libraries in `requirements.txt` and `validation/package.json` | Their own licences; installed separately and not included here |
