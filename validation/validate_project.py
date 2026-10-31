@@ -172,7 +172,8 @@ pdf_text = unicodedata.normalize("NFKC", subprocess.run(["pdftotext", "-enc", "U
                                  capture_output=True, encoding="utf-8", errors="replace").stdout) if shutil.which("pdftotext") else ""
 if not pdf_text: SKIPPED.append("فحص نص التقرير (أداة pdftotext غير متوفرة)")
 check("التقرير: الشعار مضمّن بأبعاده الأصلية 1254×1254", b"/Width 1254" in _pdf and b"/Height 1254" in _pdf)
-_pngs = sorted(str(f.relative_to(ROOT)).replace("\\", "/") for f in ROOT.rglob("*.png") if "node_modules" not in f.parts)
+_readme_assets = {"assets/dashboard-preview.png"}  # لقطة الداشبورد المعروضة في README هي الاستثناء الوحيد
+_pngs = sorted(x for x in (str(f.relative_to(ROOT)).replace("\\", "/") for f in ROOT.rglob("*.png") if "node_modules" not in f.parts) if x not in _readme_assets)
 check("لا نسخة ملف صورة للشعار: كل ملفات PNG هي رسوم outputs/figures",
       len(_pngs) == len(list((ROOT / "outputs/figures").glob("*.png"))) and all(x.startswith("outputs/figures/") for x in _pngs),
       "؛ ".join(x for x in _pngs if not x.startswith("outputs/figures/")))
